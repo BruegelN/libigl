@@ -22,7 +22,8 @@ namespace igl {
     COLOR_MAP_TYPE_PARULA = 3,
     COLOR_MAP_TYPE_PLASMA = 4,
     COLOR_MAP_TYPE_VIRIDIS = 5,
-    NUM_COLOR_MAP_TYPES = 6
+    COLOR_MAP_TYPE_BWR = 6,
+    NUM_COLOR_MAP_TYPES = 7
   };
   // Comput [r,g,b] values of the selected colormap for
   // a given factor f between 0 and 1
