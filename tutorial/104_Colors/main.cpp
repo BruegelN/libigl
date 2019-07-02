@@ -1,6 +1,9 @@
 #include <igl/readOFF.h>
 #include <igl/opengl/glfw/Viewer.h>
 #include <igl/jet.h>
+#include <igl/viridis.h>
+#include <igl/parula.h>
+#include <igl/bwr.h>
 #include "tutorial_shared_path.h"
 
 Eigen::MatrixXd V;
@@ -20,7 +23,7 @@ int main(int argc, char *argv[])
   Eigen::VectorXd Z = V.col(2);
 
   // Compute per-vertex colors
-  igl::jet(Z,true,C);
+  igl::bwr(Z,true,C);
 
   // Add per-vertex colors
   viewer.data().set_colors(C);
