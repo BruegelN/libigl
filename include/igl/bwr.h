@@ -13,7 +13,7 @@
 //#endif
 namespace igl
 {
-  // BWR divierging colormap from blue-to-white-tored like matplotlib's bwr
+  // BWR divierging colormap from Blue to White to Red like matplotlib's bwr
   //
   // Inputs:
   //   m  number of colors
