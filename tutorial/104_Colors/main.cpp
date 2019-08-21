@@ -51,6 +51,11 @@ bool key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int modifier
             igl::bwr(Z,true,C);
             break;
         }
+        case '8':
+        {
+            igl::colormap(igl::COLOR_MAP_TYPE_COOLWARM,Z,true,C);
+            break;
+        }
         case ' ':
         {
             // "clear"/ set to white
