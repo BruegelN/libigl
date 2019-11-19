@@ -15,3 +15,5 @@ jobs:
       run: mkdir build && cd build && cmake ../
     - name: make
       run: cd build && make -j$(nproc)
+    - name: test
+      run: cd build && ctest --verbose
