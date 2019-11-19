@@ -1,0 +1,19 @@
+name: C/C++ CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: install deps
+      run:  sudo apt install -y git && \
+            sudo apt install -y cmake && \
+            sudo apt install -y build-essential libglu1-mesa-dev liblapack-dev libmpfr-dev xorg-dev
+    - name: configure
+      run: mkdir build && cd build && cmake ../
+    - name: make
+      run: cd build && make -j$(nproc)
