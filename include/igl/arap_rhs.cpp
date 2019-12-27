@@ -92,4 +92,5 @@ IGL_INLINE void igl::arap_rhs(
 
 #ifdef IGL_STATIC_LIBRARY
 template void igl::arap_rhs(const Eigen::MatrixBase<Eigen::MatrixXd> & V, const Eigen::MatrixBase<Eigen::MatrixXi> & F,const int dim, const igl::ARAPEnergyType energy,Eigen::SparseCompressedBase<Eigen::SparseMatrix<double>>& K);
+template void igl::arap_rhs<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, 1, 0, -1, 1>, Eigen::SparseMatrix<double, 0, int> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> > const&, int, igl::ARAPEnergyType, Eigen::SparseCompressedBase<Eigen::SparseMatrix<double, 0, int> >&);
 #endif
