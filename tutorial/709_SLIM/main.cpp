@@ -22,6 +22,7 @@
 #include <igl/doublearea.h>
 #include <igl/cat.h>
 #include <igl/PI.h>
+#include <igl/png/writePNG.h>
 
 #include <stdlib.h>
 
@@ -56,7 +57,8 @@ enum DEMO_TYPE {
 DEMO_TYPE demo_type;
 
 bool key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int modifier){
-  if (key == ' ') {
+  if (key == '1')
+  {
     switch (demo_type) {
       case PARAM_2D: {
         param_2d_demo_iter(viewer);
@@ -74,6 +76,44 @@ bool key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int modifier
         break;
     }
   }
+  if (key == '2')
+  {
+    static bool b;
+    if(b)
+    {
+      viewer.data().set_mesh(sData.V_o*uv_scale_param, F);
+      viewer.core().align_camera_center(sData.V_o*uv_scale_param,F);
+      //viewer.data().set_uv(sData.V_o*uv_scale_param);
+      viewer.data().compute_normals();
+      b = false;
+    }
+    else
+    {
+      uv_scale_param = 20;
+      viewer.data().set_mesh(V, F);
+      viewer.core().align_camera_center(V,F);
+      viewer.data().set_uv(sData.V_o*uv_scale_param);
+      viewer.data().compute_normals();
+      viewer.data().show_texture = true;
+      b = true;
+    }
+  }
+  if (key == ' ')
+  {
+    // Allocate temporary buffers
+    Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic> R(2560,1600);
+    Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic> G(2560,1600);
+    Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic> B(2560,1600);
+    Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic> A(2560,1600);
+
+    // Draw the scene in the buffers
+    viewer.core().draw_buffer(
+      viewer.data(),false,R,G,B,A);
+
+    // Save it to a PNG
+    igl::png::writePNG(R,G,B,A,"out.png");
+  }
+
 
   return false;
 }
@@ -81,7 +121,7 @@ bool key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int modifier
 void param_2d_demo_iter(igl::opengl::glfw::Viewer& viewer) {
   if (first_iter) {
     timer.start();
-    igl::read_triangle_mesh(TUTORIAL_SHARED_PATH "/face.obj", V, F);
+    igl::read_triangle_mesh(TUTORIAL_SHARED_PATH "/camelhead.off", V, F);
     check_mesh_for_issues(V,F);
     cout << "\tMesh is valid!" << endl;
 
@@ -101,7 +141,7 @@ void param_2d_demo_iter(igl::opengl::glfw::Viewer& viewer) {
     Eigen::VectorXi b; Eigen::MatrixXd bc;
     slim_precompute(V,F,uv_init,sData, igl::MappingEnergyType::SYMMETRIC_DIRICHLET, b,bc,0);
 
-    uv_scale_param = 15 * (1./sqrt(sData.mesh_area));
+    uv_scale_param = 20;
     viewer.data().set_mesh(V, F);
     viewer.core().align_camera_center(V,F);
     viewer.data().set_uv(sData.V_o*uv_scale_param);
@@ -111,7 +151,7 @@ void param_2d_demo_iter(igl::opengl::glfw::Viewer& viewer) {
     first_iter = false;
   } else {
     timer.start();
-    slim_solve(sData,1); // 1 iter
+    slim_solve(sData,200); // 1 iter
     viewer.data().set_uv(sData.V_o*uv_scale_param);
   }
   cout << "time = " << timer.getElapsedTime() << endl;
@@ -244,13 +284,13 @@ int main(int argc, char *argv[]) {
   viewer.callback_key_down = &key_down;
 
   // Disable wireframe
-  viewer.data().show_lines = false;
+  viewer.data().show_lines = true;
 
   // Draw checkerboard texture
   viewer.data().show_texture = false;
 
   // First iteration
-  key_down(viewer, ' ', 0);
+  key_down(viewer, '1', 0);
 
   viewer.launch();
 
@@ -270,11 +310,11 @@ void check_mesh_for_issues(Eigen::MatrixXd& V, Eigen::MatrixXi& F) {
     cout << "Error! Input has multiple connected components" << endl; exit(1);
   }
   int euler_char = igl::euler_characteristic(V, F);
-  if (euler_char!=1) 
+  if (euler_char!=1)
   {
-    cout << 
-      "Error! Input does not have a disk topology, it's euler char is " << 
-      euler_char << endl; 
+    cout <<
+      "Error! Input does not have a disk topology, it's euler char is " <<
+      euler_char << endl;
     exit(1);
   }
   bool is_edge_manifold = igl::is_edge_manifold(F);

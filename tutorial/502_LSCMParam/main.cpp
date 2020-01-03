@@ -1,6 +1,7 @@
 #include <igl/boundary_loop.h>
 #include <igl/readOFF.h>
 #include <igl/opengl/glfw/Viewer.h>
+#include <igl/png/writePNG.h>
 
 #include <igl/lscm.h>
 
@@ -24,6 +25,21 @@ bool key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int modifier
     // Plot the mesh in 2D using the UV coordinates as vertex coordinates
     viewer.data().set_mesh(V_uv,F);
     viewer.core().align_camera_center(V_uv,F);
+  }
+  if (key == ' ')
+  {
+    // Allocate temporary buffers
+    Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic> R(2560,1600);
+    Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic> G(2560,1600);
+    Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic> B(2560,1600);
+    Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic> A(2560,1600);
+
+    // Draw the scene in the buffers
+    viewer.core().draw_buffer(
+      viewer.data(),false,R,G,B,A);
+
+    // Save it to a PNG
+    igl::png::writePNG(R,G,B,A,"out.png");
   }
 
   viewer.data().compute_normals();
@@ -51,7 +67,7 @@ int main(int argc, char *argv[])
   igl::lscm(V,F,b,bc,V_uv);
 
   // Scale the uv
-  V_uv *= 5;
+  V_uv *= 20;
 
   // Plot the mesh
   igl::opengl::glfw::Viewer viewer;

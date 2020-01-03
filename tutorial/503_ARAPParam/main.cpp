@@ -4,6 +4,7 @@
 #include <igl/map_vertices_to_circle.h>
 #include <igl/readOFF.h>
 #include <igl/opengl/glfw/Viewer.h>
+#include <igl/png/writePNG.h>
 
 #include "tutorial_shared_path.h"
 
@@ -33,6 +34,22 @@ bool key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int modifier
   {
     viewer.data().set_mesh(V,F);
     viewer.core().align_camera_center(V,F);
+  }
+
+  if (key == ' ')
+  {
+    // Allocate temporary buffers
+    Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic> R(2560,1600);
+    Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic> G(2560,1600);
+    Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic> B(2560,1600);
+    Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic> A(2560,1600);
+
+    // Draw the scene in the buffers
+    viewer.core().draw_buffer(
+      viewer.data(),false,R,G,B,A);
+
+    // Save it to a PNG
+    igl::png::writePNG(R,G,B,A,"out.png");
   }
 
   viewer.data().compute_normals();
