@@ -72,4 +72,5 @@ template void igl::adjacency_matrix<Eigen::Matrix<int, -1, -1, 0, -1, -1>, bool>
 template void igl::adjacency_matrix<Eigen::Matrix<int, -1, -1, 0, -1, -1>, double>(Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::SparseMatrix<double, 0, int>&);
 template void igl::adjacency_matrix<Eigen::Matrix<int, -1, -1, 0, -1, -1>, int>(Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::SparseMatrix<int, 0, int>&);
 template void igl::adjacency_matrix<Eigen::Matrix<int, -1, 3, 0, -1, 3>, int>(Eigen::MatrixBase<Eigen::Matrix<int, -1, 3, 0, -1, 3> > const&, Eigen::SparseMatrix<int, 0, int>&);
+template void igl::adjacency_matrix<Eigen::Matrix<double, -1, -1, 0, -1, -1>, double>(Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::SparseMatrix<double, 0, int>&);
 #endif
