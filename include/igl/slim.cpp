@@ -7,33 +7,18 @@
 // obtain one at http://mozilla.org/MPL/2.0/.
 #include "slim.h"
 
-#include "boundary_loop.h"
-#include "cotmatrix.h"
-#include "edge_lengths.h"
 #include "grad.h"
 #include "local_basis.h"
-#include "repdiag.h"
-#include "vector_area_matrix.h"
-#include "arap.h"
-#include "cat.h"
 #include "doublearea.h"
-#include "grad.h"
-#include "local_basis.h"
-#include "per_face_normals.h"
-#include "slice_into.h"
-#include "volume.h"
 #include "polar_svd.h"
 #include "flip_avoiding_line_search.h"
 #include "mapping_energy_with_jacobians.h"
 
-#include <iostream>
-#include <map>
-#include <set>
+#include <functional> // std::function
 #include <vector>
 
 #include <Eigen/IterativeLinearSolvers>
 #include <Eigen/SparseCholesky>
-#include <Eigen/IterativeLinearSolvers>
 
 #include "Timer.h"
 #include "sparse_cached.h"
