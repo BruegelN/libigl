@@ -1,0 +1,20 @@
+name: Trigger libigl-example-project
+
+on:
+  push: {}
+  pull_request: {}
+
+jobs:
+  trigger-via-api:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository Dispatch
+#     we only want to trigger a build from the main repo
+        if: github.repository == 'BruegelN/libigl'
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          repository: BruegelN/libigl-example-project
+          event-type: trigger-example-project
+          client-payload: '{"ref": "${{ github.ref }}"}'
