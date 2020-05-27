@@ -432,8 +432,10 @@ namespace glfw
       }
 
       data().set_mesh(V,F);
-      data().set_uv(UV_V,UV_F);
-
+      if(!UV_V.rows() != 0 && UV_F.rows() != 0)
+      {
+        data().set_uv(UV_V,UV_F);
+      }
     }
     else
     {
@@ -447,11 +449,6 @@ namespace glfw
                    Eigen::Vector3d(255.0/255.0,228.0/255.0,58.0/255.0),
                    Eigen::Vector3d(255.0/255.0,235.0/255.0,80.0/255.0));
 
-    // Alec: why?
-    if (data().V_uv.rows() == 0)
-    {
-      data().grid_texture();
-    }
     for(int i=0;i<core_list.size(); i++)
         core_list[i].align_camera_center(data().V,data().F);
 
