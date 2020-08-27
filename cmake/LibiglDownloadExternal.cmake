@@ -112,6 +112,15 @@ function(igl_download_imgui)
 	)
 endfunction()
 
+## ImGuizmo
+function(igl_download_imguizmo)
+	igl_download_project(imguizmo
+		GIT_REPOSITORY https://github.com/CedricGuillemet/ImGuizmo.git
+		GIT_TAG        a23567269f6617342bcc112394bdad937b54b2d7
+		${LIBIGL_BRANCH_OPTIONS}
+	)
+endfunction()
+
 ## pybind11
 function(igl_download_pybind11)
 	igl_download_project(pybind11
@@ -184,7 +193,7 @@ function(igl_download_tutorial_data)
 	igl_download_project_aux(tutorial_data
 		"${LIBIGL_EXTERNAL}/../tutorial/data"
 		GIT_REPOSITORY https://github.com/libigl/libigl-tutorial-data
-		GIT_TAG        5c6a1ea809c043d71e5595775709c15325a7158c
+		GIT_TAG        fb5fa00bc4ede64b36002d703ce541552370b6e9
 	)
 endfunction()
 
