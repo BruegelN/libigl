@@ -429,7 +429,9 @@ IGL_INLINE void igl::opengl::ViewerData::add_label(const Eigen::VectorXd& P,  co
     P_temp << P.transpose(), 0;
   }
   else
-    P_temp = P;
+  {
+    P_temp = P.transpose();
+  }
 
   int lastid = labels_positions.rows();
   labels_positions.conservativeResize(lastid+1, 3);
