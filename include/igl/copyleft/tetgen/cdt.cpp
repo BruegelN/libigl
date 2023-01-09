@@ -24,7 +24,6 @@ IGL_INLINE bool igl::copyleft::tetgen::cdt(
   Eigen::PlainObjectBase<DerivedTF>& TF)
 {
   using namespace Eigen;
-  using namespace std;
   // Effective input mesh
   DerivedV U;
   DerivedF G;
@@ -54,7 +53,7 @@ IGL_INLINE bool igl::copyleft::tetgen::cdt(
     G = F;
   }
   // effective flags;
-  string flags = param.flags + (param.use_bounding_box ? "" : "c");
+  std::string flags = param.flags + (param.use_bounding_box ? "" : "c");
   return tetrahedralize(U,G,flags,TV,TT,TF);
 }
 

@@ -21,11 +21,11 @@ namespace igl
   //   F       #F by dim list of mesh faces (must be triangles)
   //   sorted  flag that indicates if the list should be sorted counter-clockwise
   // Outputs: 
-  //   A  vector<vector<T> > containing at row i the adjacent vertices of vertex i
+  //   A  std::vector<std::vector<T> > containing at row i the adjacent vertices of vertex i
   //
   // Example:
   //   // Mesh in (V,F)
-  //   vector<vector<double> > A;
+  //   std::vector<std::vector<double> > A;
   //   adjacency_list(F,A);
   //
   // See also: edges, cotmatrix, diag

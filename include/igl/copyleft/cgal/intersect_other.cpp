@@ -77,7 +77,6 @@ namespace igl
         Eigen::PlainObjectBase<DerivedIMAB> & IMAB)
       {
 
-        using namespace std;
         using namespace Eigen;
 
         typedef typename DerivedFA::Index Index;
@@ -135,7 +134,6 @@ namespace igl
         std::list<int> lIF;
         const auto cb = [&](const Box &a, const Box &b) -> void
         {
-          using namespace std;
           // index in F and T
           int fa = a.handle()-TA.begin();
           int fb = b.handle()-TB.begin();
@@ -180,7 +178,7 @@ namespace igl
         {
           int i=0;
           for(
-            list<int>::const_iterator ifit = lIF.begin();
+            std::list<int>::const_iterator ifit = lIF.begin();
             ifit!=lIF.end();
             )
           {

@@ -20,7 +20,6 @@ igl::opengl::glfw::Viewer viewer;
 int main(int argc, char *argv[])
 {
   using namespace Eigen;
-  using namespace std;
 
   // Load a mesh in OFF format
   igl::readOFF(TUTORIAL_SHARED_PATH "/cow.off", V, F);
@@ -40,7 +39,7 @@ int main(int argc, char *argv[])
   // Laplacian K built as discrete divergence of gradient or equivalently
   // discrete Dirichelet energy Hessian
   K = -G.transpose() * T * G;
-  cout<<"|K-L|: "<<(K-L).norm()<<endl;
+  std::cout<<"|K-L|: "<<(K-L).norm()<<std::endl;
 
   const auto &key_down = [](igl::opengl::glfw::Viewer &viewer,unsigned char key,int mod)->bool
   {
@@ -98,7 +97,7 @@ int main(int argc, char *argv[])
   viewer.data().set_colors(C);
   viewer.callback_key_down = key_down;
 
-  cout<<"Press [space] to smooth."<<endl;;
-  cout<<"Press [r] to reset."<<endl;;
+  std::cout<<"Press [space] to smooth."<<std::endl;;
+  std::cout<<"Press [r] to reset."<<std::endl;;
   return viewer.launch();
 }

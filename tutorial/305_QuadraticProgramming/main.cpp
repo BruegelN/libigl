@@ -15,7 +15,6 @@ Eigen::SparseMatrix<double> Q,Aeq,Aieq;
 
 void solve(igl::opengl::glfw::Viewer &viewer)
 {
-  using namespace std;
   igl::active_set_params as;
   as.max_iter = 8;
   igl::active_set(Q,B,b,bc,Aeq,Beq,Aieq,Bieq,lx,ux,as,Z);
@@ -46,7 +45,6 @@ bool key_down(igl::opengl::glfw::Viewer &viewer, unsigned char key, int mod)
 int main(int argc, char *argv[])
 {
   using namespace Eigen;
-  using namespace std;
   MatrixXd V;
   MatrixXi F;
   igl::readOFF(TUTORIAL_SHARED_PATH "/cheburashka.off",V,F);
@@ -85,9 +83,9 @@ int main(int argc, char *argv[])
   Aeq = M.diagonal().sparseView().transpose();
   // (Empty inequality constraints)
   solve(viewer);
-  cout<<
-    "Press '.' to increase scale and resolve."<<endl<<
-    "Press ',' to decrease scale and resolve."<<endl;
+  std::cout<<
+    "Press '.' to increase scale and resolve."<<std::endl<<
+    "Press ',' to decrease scale and resolve."<<std::endl;
 
   viewer.launch();
 }

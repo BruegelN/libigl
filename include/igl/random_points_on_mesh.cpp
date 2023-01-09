@@ -21,7 +21,6 @@ IGL_INLINE void igl::random_points_on_mesh(
   Eigen::PlainObjectBase<DerivedFI > & FI)
 {
   using namespace Eigen;
-  using namespace std;
   typedef typename DerivedV::Scalar Scalar;
   typedef Matrix<Scalar,Dynamic,1> VectorXs;
   VectorXs A;
@@ -88,10 +87,9 @@ IGL_INLINE void igl::random_points_on_mesh(
   Eigen::PlainObjectBase<DerivedFI > & FI)
 {
   using namespace Eigen;
-  using namespace std;
   Matrix<ScalarB,Dynamic,3> BC;
   random_points_on_mesh(n,V,F,BC,FI);
-  vector<Triplet<ScalarB> > BIJV;
+  std::vector<Triplet<ScalarB> > BIJV;
   BIJV.reserve(n*3);
   for(int s = 0;s<n;s++)
   {

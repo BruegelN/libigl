@@ -21,8 +21,7 @@
 
 //static void mod2(std::pair<const std::pair<const int, const int>, int>& p)
 //{
-//  using namespace std;
-//  // Be sure that sign of mod matches sign of argument
+//  //  // Be sure that sign of mod matches sign of argument
 //  p.second = p.second%2 ? sgn(p.second) : 0;
 //}
 
@@ -46,7 +45,6 @@ IGL_INLINE void igl::exterior_edges(
   Eigen::MatrixXi & E)
 {
   using namespace Eigen;
-  using namespace std;
   assert(F.cols() == 3);
   const size_t m = F.rows();
   MatrixXi all_E,sall_E,sort_order;

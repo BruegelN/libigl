@@ -26,7 +26,6 @@ IGL_INLINE void igl::copyleft::cgal::projected_delaunay(
         CGAL::Constrained_triangulation_face_base_2<Kernel> >,
       CGAL::Exact_intersections_tag> > & cdt)
 {
-  using namespace std;
   // 3D Primitives
   typedef CGAL::Point_3<Kernel>    Point_3;
   typedef CGAL::Segment_3<Kernel>  Segment_3; 
@@ -82,7 +81,7 @@ IGL_INLINE void igl::copyleft::cgal::projected_delaunay(
     } else if(const std::vector<Point_3 > *polyp = 
         CGAL::object_cast< std::vector<Point_3 > >(&obj))
     {
-      //cerr<<REDRUM("Poly...")<<endl;
+      //std::cerrREDRUM("Poly...")<<std::endl;
       const std::vector<Point_3 > & poly = *polyp;
       const Index m = poly.size();
       assert(m>=2);
@@ -93,7 +92,7 @@ IGL_INLINE void igl::copyleft::cgal::projected_delaunay(
       }
     }else
     {
-      cerr<<REDRUM("What is this object?!")<<endl;
+      std::cerr<<REDRUM("What is this object?!")<<std::endl;
       assert(false);
     }
   }

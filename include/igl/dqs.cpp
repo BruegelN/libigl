@@ -21,7 +21,6 @@ IGL_INLINE void igl::dqs(
   const std::vector<T> & vT,
   Eigen::PlainObjectBase<DerivedU> & U)
 {
-  using namespace std;
   assert(V.rows() <= W.rows());
   assert(W.cols() == (int)vQ.size());
   assert(W.cols() == (int)vT.size());
@@ -29,7 +28,7 @@ IGL_INLINE void igl::dqs(
   U.resizeLike(V);
 
   // Convert quats + trans into dual parts
-  vector<Q> vD(vQ.size());
+  std::vector<Q> vD(vQ.size());
   for(int c = 0;c<W.cols();c++)
   {
     const Q & q = vQ[c];

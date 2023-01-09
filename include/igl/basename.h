@@ -15,8 +15,8 @@ namespace igl
 {
   // Function like PHP's basename: /etc/sudoers.d --> sudoers.d
   // Input:
-  //  path  string containing input path
-  // Returns string containing basename (see php's basename)
+  //  path  std::string containing input path
+  // Returns std::string containing basename (see php's basename)
   //
   // See also: dirname, pathinfo
   IGL_INLINE std::string basename(const std::string & path);

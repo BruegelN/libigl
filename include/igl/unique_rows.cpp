@@ -20,7 +20,6 @@ IGL_INLINE void igl::unique_rows(
   Eigen::PlainObjectBase<DerivedIA>& IA,
   Eigen::PlainObjectBase<DerivedIC>& IC)
 {
-  using namespace std;
   using namespace Eigen;
   VectorXi IM;
   DerivedA sortA;
@@ -29,7 +28,7 @@ IGL_INLINE void igl::unique_rows(
 
   const int num_rows = sortA.rows();
   const int num_cols = sortA.cols();
-  vector<int> vIA(num_rows);
+  std::vector<int> vIA(num_rows);
   for(int i=0;i<num_rows;i++)
   {
     vIA[i] = i;

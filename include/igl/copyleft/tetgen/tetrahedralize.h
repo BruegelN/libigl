@@ -28,7 +28,7 @@ namespace igl
       // Inputs:
       //   V  #V by 3 vertex position list
       //   F  #F list of polygon face indices into V (0-indexed)
-      //   switches  string of tetgen options (See tetgen documentation) e.g.
+      //   switches  std::string of tetgen options (See tetgen documentation) e.g.
       //     "pq1.414a0.01" tries to mesh the interior of a given surface with
       //       quality and area constraints
       //     "" will mesh the convex hull constrained to pass through V (ignores F)
@@ -74,7 +74,7 @@ namespace igl
       //   V  #V by 3 vertex position list
       //   F  #F list of polygon face indices into V (0-indexed)
       //   M  #V list of markers for vertices
-      //   switches  string of tetgen options (See tetgen documentation) e.g.
+      //   switches  std::string of tetgen options (See tetgen documentation) e.g.
       //     "pq1.414a0.01" tries to mesh the interior of a given surface with
       //       quality and area constraints
       //     "" will mesh the convex hull constrained to pass through V (ignores F)
@@ -129,7 +129,7 @@ namespace igl
       //   F  #F list of polygon face indices into V (0-indexed)
       //   H  #H by 3 list of seed points inside holes
       //   R  #R by 5 list of region attributes            
-      //   switches  string of tetgen options (See tetgen documentation) e.g.
+      //   switches  std::string of tetgen options (See tetgen documentation) e.g.
       //     "pq1.414a0.01" tries to mesh the interior of a given surface with
       //       quality and area constraints
       //     "" will mesh the convex hull constrained to pass through V (ignores F)

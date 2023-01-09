@@ -22,7 +22,6 @@ IGL_INLINE bool igl::unproject_onto_mesh(
   int & fid,
   Eigen::PlainObjectBase<Derivedbc> & bc)
 {
-  using namespace std;
   using namespace Eigen;
   const auto & shoot_ray = [&V,&F](
     const Eigen::Vector3f& s,
@@ -55,7 +54,6 @@ IGL_INLINE bool igl::unproject_onto_mesh(
   int & fid,
   Eigen::PlainObjectBase<Derivedbc> & bc)
 {
-  using namespace std;
   using namespace Eigen;
   Vector3f s,dir;
   unproject_ray(pos,model,proj,viewport,s,dir);

@@ -24,7 +24,6 @@ IGL_INLINE void igl::point_mesh_squared_distance(
   Eigen::PlainObjectBase<DerivedI> & I,
   Eigen::PlainObjectBase<DerivedC> & C)
 {
-  using namespace std;
   const size_t dim = P.cols();
   assert((dim == 2 || dim == 3) && "P.cols() should be 2 or 3");
   assert(P.cols() == V.cols() && "P.cols() should equal V.cols()");

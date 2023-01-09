@@ -18,7 +18,7 @@ namespace igl
     // Creates and compiles a shader from a given string
     //
     // Inputs:
-    //   src  string containing GLSL shader code
+    //   src  std::string containing GLSL shader code
     //   type  GLSL type of shader, one of:
     //     GL_VERTEX_SHADER
     //     GL_FRAGMENT_SHADER

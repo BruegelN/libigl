@@ -34,7 +34,6 @@ IGL_INLINE void igl::AABB<DerivedV,DIM>::init(
     const Eigen::MatrixBase<Derivedelements> & elements,
     const int i)
 {
-  using namespace std;
   using namespace Eigen;
   deinit();
   if(bb_mins.size() > 0)
@@ -112,7 +111,6 @@ IGL_INLINE void igl::AABB<DerivedV,DIM>::init(
     const Eigen::MatrixBase<DerivedI> & I)
 {
   using namespace Eigen;
-  using namespace std;
   deinit();
   if(V.size() == 0 || Ele.size() == 0 || I.size() == 0)
   {
@@ -157,7 +155,7 @@ IGL_INLINE void igl::AABB<DerivedV,DIM>::init(
         const auto median = [](VectorXi A)->int
         {
           size_t n = (A.size()-1)/2;
-          nth_element(A.data(),A.data()+n,A.data()+A.size());
+          std::nth_element(A.data(),A.data()+n,A.data()+A.size());
           return A(n);
         };
         const int med = median(SIdI);
@@ -209,7 +207,6 @@ IGL_INLINE std::vector<int> igl::AABB<DerivedV,DIM>::find(
     const Eigen::MatrixBase<Derivedq> & q,
     const bool first) const
 {
-  using namespace std;
   using namespace Eigen;
   assert(q.size() == DIM &&
       "Query dimension should match aabb dimension");
@@ -319,7 +316,6 @@ IGL_INLINE void igl::AABB<DerivedV,DIM>::serialize(
     Eigen::PlainObjectBase<Derivedelements> & elements,
     const int i) const
 {
-  using namespace std;
   using namespace Eigen;
   // Calling for root then resize output
   if(i==0)
@@ -371,7 +367,6 @@ igl::AABB<DerivedV,DIM>::squared_distance(
   Eigen::PlainObjectBase<RowVectorDIMS> & c) const
 {
   using namespace Eigen;
-  using namespace std;
   //assert(low_sqr_d <= up_sqr_d);
   if(low_sqr_d > up_sqr_d)
   {
@@ -550,7 +545,6 @@ IGL_INLINE typename igl::AABB<DerivedV,DIM>::Scalar
   Eigen::PlainObjectBase<DerivedI> & I,
   Eigen::PlainObjectBase<DerivedC> & C) const
 {
-  using namespace std;
   using namespace Eigen;
 
   // This implementation is a bit disappointing. There's no major speed up. Any
@@ -775,7 +769,6 @@ IGL_INLINE void igl::AABB<DerivedV,DIM>::leaf_squared_distance(
   Eigen::PlainObjectBase<RowVectorDIMS> & c) const
 {
   using namespace Eigen;
-  using namespace std;
   if(low_sqr_d > sqr_d)
   {
     sqr_d = low_sqr_d;

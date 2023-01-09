@@ -20,10 +20,10 @@ namespace igl
     // source strings and vertex attributes assigned from a map before linking the
     // shaders to the program, making it ready to use with glUseProgram(id)
     // Inputs:
-    //   geom_source  string containing source code of geometry shader (can be
+    //   geom_source  std::string containing source code of geometry shader (can be
     //     "" to mean use default pass-through)
-    //   vert_source  string containing source code of vertex shader
-    //   frag_source  string containing source code of fragment shader
+    //   vert_source  std::string containing source code of vertex shader
+    //   frag_source  std::string containing source code of fragment shader
     //   attrib  map containing table of vertex attribute strings add their
     //   correspondingly ids (generated previously using glBindAttribLocation)
     // Outputs:

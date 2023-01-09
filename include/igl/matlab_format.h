@@ -28,13 +28,13 @@ namespace igl
   //
   // Example:
   // // M := [1 2 3;4 5 6];
-  // cout<<matlab_format(M)<<endl;
+  // std::cout<<matlab_format(M)<<std::endl;
   // // Prints:
   // // [
   // //   1 2 3
   // //   4 5 6
   // // ];
-  // cout<<matlab_format(M,"M")<<endl;
+  // std::cout<<matlab_format(M,"M")<<std::endl;
   // // Prints:
   // // M = [
   // //   1 2 3
@@ -52,7 +52,7 @@ namespace igl
   // and then print a call to sparse which will construct the sparse matrix
   // Example:
   // // S := [0 2 3;4 5 0];
-  // cout<<matlab_format(S,"S")<<endl;
+  // std::cout<<matlab_format(S,"S")<<std::endl;
   // // Prints:
   // // SIJV = [
   // //   2 1 4
@@ -76,7 +76,7 @@ namespace igl
   //
   // Example:
   // // M := [1 2 3;4 5 6];
-  // cout<<M.format(matlab_format())<<endl;
+  // std::cout<<M.format(matlab_format())<<std::endl;
   // // Prints:
   // // [
   // //   1 2 3

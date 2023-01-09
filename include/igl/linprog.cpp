@@ -22,7 +22,6 @@ IGL_INLINE bool igl::linprog(
   // This is a very literal translation of
   // http://www.mathworks.com/matlabcentral/fileexchange/2166-introduction-to-linear-algebra/content/strang/linprog.m
   using namespace Eigen;
-  using namespace std;
   bool success = true;
   // number of constraints
   const int m = _A.rows();
@@ -53,7 +52,7 @@ IGL_INLINE bool igl::linprog(
   A<<_A,D;
   // Initial basis
   VectorXi B = igl::colon<int>(n,n+m-1);
-  // non-basis, may turn out that vector<> would be better here
+  // non-basis, may turn out that std::vector<> would be better here
   VectorXi N = igl::colon<int>(0,n-1);
   int j;
   double bmin = b.minCoeff(&j);
@@ -114,7 +113,7 @@ IGL_INLINE bool igl::linprog(
       if(MAXIT>0 && it>=MAXIT)
       {
 #ifdef IGL_LINPROG_VERBOSE
-        cerr<<"linprog: warning! maximum iterations without convergence."<<endl;
+        std::cerr<<"linprog: warning! maximum iterations without convergence."<<std::endl;
 #endif
         success = false;
         break;
@@ -144,7 +143,7 @@ IGL_INLINE bool igl::linprog(
         if(MAXIT == -1)
         {
 #ifdef IGL_LINPROG_VERBOSE
-          cerr<<"linprog: warning! degenerate vertex"<<endl;
+          std::cerr<<"linprog: warning! degenerate vertex"<<std::endl;
 #endif
           success = false;
         }
@@ -160,7 +159,7 @@ IGL_INLINE bool igl::linprog(
       if(I.size() == 0)
       {
 #ifdef IGL_LINPROG_VERBOSE
-        cerr<<"linprog: warning! solution is unbounded"<<endl;
+        std::cerr<<"linprog: warning! solution is unbounded"<<std::endl;
 #endif
         // This seems dubious:
         it=-it;
@@ -231,7 +230,7 @@ IGL_INLINE bool igl::linprog(
     {
       it = -it;
 #ifdef IGL_LINPROG_VERBOSE
-      cerr<<"linprog: warning, no feasible solution"<<endl;
+      std::cerr<<"linprog: warning, no feasible solution"<<std::endl;
 #endif
       success = false;
       break;
@@ -256,7 +255,6 @@ IGL_INLINE bool igl::linprog(
   Eigen::VectorXd & x)
 {
   using namespace Eigen;
-  using namespace std;
   const int m = A.rows();
   const int n = A.cols();
   const int p = B.rows();

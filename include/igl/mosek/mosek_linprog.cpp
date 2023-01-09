@@ -45,15 +45,14 @@ IGL_INLINE bool igl::mosek::mosek_linprog(
   Eigen::VectorXd & x)
 {
   // following http://docs.mosek.com/7.1/capi/Linear_optimization.html
-  using namespace std;
   // number of constraints
   const int m = A.rows();
   // number of variables
   const int n = A.cols();
 
 
-  vector<double> vAv;
-  vector<int> vAri,vAcp;
+  std::vector<double> vAv;
+  std::vector<int> vAri,vAcp;
   int nr;
   harwell_boeing(A,nr,vAv,vAri,vAcp);
 
@@ -103,8 +102,8 @@ IGL_INLINE bool igl::mosek::mosek_linprog(
     }
 
     // Set constant bounds on variable j
-    const double lxj = lx.size()>0?lx[j]:-numeric_limits<double>::infinity();
-    const double uxj = ux.size()>0?ux[j]: numeric_limits<double>::infinity();
+    const double lxj = lx.size()>0?lx[j]:-std::numeric_limits<double>::infinity();
+    const double uxj = ux.size()>0?ux[j]: std::numeric_limits<double>::infinity();
     mosek_guarded(MSK_putvarbound(task,j,key(lxj,uxj),lxj,uxj));
 
     if(m>0)
@@ -124,8 +123,8 @@ IGL_INLINE bool igl::mosek::mosek_linprog(
   for(int i = 0;i<m;i++)
   {
     // Set constraint bounds for row i
-    const double lci = lc.size()>0?lc[i]:-numeric_limits<double>::infinity();
-    const double uci = uc.size()>0?uc[i]: numeric_limits<double>::infinity();
+    const double lci = lc.size()>0?lc[i]:-std::numeric_limits<double>::infinity();
+    const double uci = uc.size()>0?uc[i]: std::numeric_limits<double>::infinity();
     mosek_guarded(MSK_putconbound(task,i,key(lci,uci),lci,uci));
   }
 

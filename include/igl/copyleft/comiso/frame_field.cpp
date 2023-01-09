@@ -106,7 +106,6 @@ private:
 
 FrameInterpolator::FrameInterpolator(const Eigen::MatrixXd& _V, const Eigen::MatrixXi& _F)
 {
-  using namespace std;
   using namespace Eigen;
 
   V = _V;
@@ -204,7 +203,6 @@ Eigen::RowVectorXd FrameInterpolator::theta2vector(const Eigen::MatrixXd& TP, co
 
 void FrameInterpolator::interpolateCross()
 {
-  using namespace std;
   using namespace Eigen;
 
   //olga: was
@@ -254,7 +252,6 @@ void FrameInterpolator::resetConstraints()
 
 void FrameInterpolator::compute_edge_consistency()
 {
-  using namespace std;
   using namespace Eigen;
 
   // Compute per-edge consistency
@@ -299,7 +296,6 @@ void FrameInterpolator::compute_edge_consistency()
 
 void FrameInterpolator::computek()
 {
-  using namespace std;
   using namespace Eigen;
 
   k.resize(EF.rows());
@@ -401,7 +397,6 @@ void FrameInterpolator::computek()
 
   void FrameInterpolator::frame2canonical(const Eigen::MatrixXd& TP, const Eigen::RowVectorXd& v, double& theta, Eigen::VectorXd& S_v)
 {
-  using namespace std;
   using namespace Eigen;
 
   RowVectorXd v0 = v.segment<3>(0);
@@ -420,7 +415,7 @@ void FrameInterpolator::computek()
 
   assert(M.determinant() > 0);
 
-  // cerr << "M: " << M << endl;
+  // cerr << "M: " << M << std::endl;
 
   MatrixXd R,S;
   PolarDecomposition(M,R,S);
@@ -443,7 +438,6 @@ void FrameInterpolator::computek()
 
   void FrameInterpolator::canonical2frame(const Eigen::MatrixXd& TP, const double theta, const Eigen::VectorXd& S_v, Eigen::RowVectorXd& v)
 {
-  using namespace std;
   using namespace Eigen;
 
   assert(S_v.size() == 3);
@@ -481,7 +475,6 @@ void FrameInterpolator::solve()
 
 void FrameInterpolator::interpolateSymmetric()
 {
-  using namespace std;
   using namespace Eigen;
 
   // Generate uniform Laplacian matrix
@@ -603,7 +596,6 @@ void FrameInterpolator::interpolateSymmetric()
 
 void FrameInterpolator::setConstraint(const int fid, const Eigen::VectorXd& v)
 {
-  using namespace std;
   using namespace Eigen;
 
   double   t_;
@@ -624,7 +616,6 @@ void FrameInterpolator::setConstraint(const int fid, const Eigen::VectorXd& v)
 
 Eigen::MatrixXd FrameInterpolator::getFieldPerFace()
 {
-  using namespace std;
   using namespace Eigen;
 
   MatrixXd R(F.rows(),6);
@@ -639,7 +630,6 @@ Eigen::MatrixXd FrameInterpolator::getFieldPerFace()
 
   void FrameInterpolator::PolarDecomposition(Eigen::MatrixXd V, Eigen::MatrixXd& U, Eigen::MatrixXd& P)
 {
-  using namespace std;
   using namespace Eigen;
 
   // Polar Decomposition
@@ -664,7 +654,6 @@ IGL_INLINE void igl::copyleft::comiso::frame_field(
                                  )
 
 {
-  using namespace std;
   using namespace Eigen;
 
   assert(b.size() > 0);

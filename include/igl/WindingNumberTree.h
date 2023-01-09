@@ -191,7 +191,6 @@ inline void igl::WindingNumberTree<Point,DerivedV,DerivedF>::set_mesh(
     const Eigen::MatrixBase<DerivedV> & _V,
     const Eigen::MatrixBase<DerivedF> & _F)
 {
-  using namespace std;
   // Remove any exactly duplicate vertices
   // Q: Can this ever increase the complexity of the boundary?
   // Q: Would we gain even more by remove almost exactly duplicate vertices?
@@ -223,9 +222,8 @@ inline igl::WindingNumberTree<Point,DerivedV,DerivedF>::~WindingNumberTree()
 template <typename Point, typename DerivedV, typename DerivedF>
 inline void igl::WindingNumberTree<Point,DerivedV,DerivedF>::delete_children()
 {
-  using namespace std;
   // Delete children
-  typename list<WindingNumberTree<Point,DerivedV,DerivedF>* >::iterator cit = children.begin();
+  typename std::list<WindingNumberTree<Point,DerivedV,DerivedF>* >::iterator cit = children.begin();
   while(cit != children.end())
   {
     // clear the memory of this item
@@ -282,7 +280,6 @@ template <typename Point, typename DerivedV, typename DerivedF>
 inline typename DerivedV::Scalar 
 igl::WindingNumberTree<Point,DerivedV,DerivedF>::winding_number(const Point & p) const
 {
-  using namespace std;
   //cout<<"+"<<boundary.rows();
   // If inside then we need to be careful
   if(inside(p))
@@ -293,7 +290,7 @@ igl::WindingNumberTree<Point,DerivedV,DerivedF>::winding_number(const Point & p)
       // Recurse on each child and accumulate
       typename DerivedV::Scalar sum = 0;
       for(
-        typename list<WindingNumberTree<Point,DerivedV,DerivedF>* >::const_iterator cit = children.begin();
+        typename std::list<WindingNumberTree<Point,DerivedV,DerivedF>* >::const_iterator cit = children.begin();
         cit != children.end();
         cit++)
       {
@@ -368,7 +365,6 @@ inline typename DerivedV::Scalar
 igl::WindingNumberTree<Point,DerivedV,DerivedF>::winding_number_boundary(const Point & p) const
 {
   using namespace Eigen;
-  using namespace std;
   return igl::winding_number(V,cap,p);
 }
 
@@ -377,13 +373,12 @@ igl::WindingNumberTree<Point,DerivedV,DerivedF>::winding_number_boundary(const P
 //  const Point & p, 
 //  const double min_max_w)
 //{
-//  using namespace std;
-//  if(max_simple_abs_winding_number(p) > min_max_w)
+//  //  if(max_simple_abs_winding_number(p) > min_max_w)
 //  {
 //    return winding_number(p);
 //  }else
 //  {
-//    cout<<"Skipped! "<<max_simple_abs_winding_number(p)<<"<"<<min_max_w<<endl;
+//    std::cout<<"Skipped! "<<max_simple_abs_winding_number(p)<<"<"<<min_max_w<<std::endl;
 //    return 0;
 //  }
 //}
@@ -391,17 +386,16 @@ igl::WindingNumberTree<Point,DerivedV,DerivedF>::winding_number_boundary(const P
 template <typename Point, typename DerivedV, typename DerivedF>
 inline void igl::WindingNumberTree<Point,DerivedV,DerivedF>::print(const char * tab)
 {
-  using namespace std;
   // Print all facets
-  cout<<tab<<"["<<endl<<F<<endl<<"]";
+  std::cout<<tab<<"["<<std::endl<<F<<std::endl<<"]";
   // Print children
   for(
-      typename list<WindingNumberTree<Point,DerivedV,DerivedF>* >::iterator cit = children.begin();
+      typename std::list<WindingNumberTree<Point,DerivedV,DerivedF>* >::iterator cit = children.begin();
       cit != children.end();
       cit++)
   {
-    cout<<","<<endl;
-    (*cit)->print((string(tab)+"").c_str());
+    std::cout<<","<<std::endl;
+    (*cit)->print((std::string(tab)+"").c_str());
   }
 }
 
@@ -417,8 +411,7 @@ inline typename DerivedV::Scalar
 igl::WindingNumberTree<Point,DerivedV,DerivedF>::max_simple_abs_winding_number(
   const Point & /*p*/) const
 {
-  using namespace std;
-  return numeric_limits<typename DerivedV::Scalar>::infinity();
+    return std::numeric_limits<typename DerivedV::Scalar>::infinity();
 }
 
 template <typename Point, typename DerivedV, typename DerivedF>
@@ -427,7 +420,6 @@ igl::WindingNumberTree<Point,DerivedV,DerivedF>::cached_winding_number(
   const igl::WindingNumberTree<Point,DerivedV,DerivedF> & that,
   const Point & p) const
 {
-  using namespace std;
   // Simple metric for `is_far`
   //
   //   this             that
@@ -458,7 +450,7 @@ igl::WindingNumberTree<Point,DerivedV,DerivedF>::cached_winding_number(
   if(is_far)
   {
     // Not implemented yet
-    pair<const WindingNumberTree*,const WindingNumberTree*> this_that(this,&that);
+    std::pair<const WindingNumberTree*,const WindingNumberTree*> this_that(this,&that);
     // Need to compute it for first time?
     if(cached.count(this_that)==0)
     {
@@ -473,7 +465,7 @@ igl::WindingNumberTree<Point,DerivedV,DerivedF>::cached_winding_number(
   }else
   {
     for(
-      typename list<WindingNumberTree<Point,DerivedV,DerivedF>* >::const_iterator cit = children.begin();
+      typename std::list<WindingNumberTree<Point,DerivedV,DerivedF>* >::const_iterator cit = children.begin();
       cit != children.end();
       cit++)
     {

@@ -13,14 +13,13 @@
 
 int main(int argc, char * argv[])
 {
-  using namespace std;
   using namespace Eigen;
   using namespace igl;
-  cout<<"Usage: ./703_Decimation_bin [filename.(off|obj|ply)]"<<endl;
-  cout<<"  [space]  toggle animation."<<endl;
-  cout<<"  'r'  reset."<<endl;
+  std::cout<<"Usage: ./703_Decimation_bin [filename.(off|obj|ply)]"<<std::endl;
+  std::cout<<"  [space]  toggle animation."<<std::endl;
+  std::cout<<"  'r'  reset."<<std::endl;
   // Load a closed manifold mesh
-  string filename(TUTORIAL_SHARED_PATH "/fertility.off");
+  std::string filename(TUTORIAL_SHARED_PATH "/fertility.off");
   if(argc>=2)
   {
     filename = argv[1];

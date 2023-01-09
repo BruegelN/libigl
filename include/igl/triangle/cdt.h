@@ -20,7 +20,7 @@ namespace igl
     // Inputs:
     //   V  #V by 2 list of texture mesh vertices
     //   E  #E by 2 list of constraint edge indices into V
-    //   flags  string of triangle flags should contain "-c" unless the
+    //   flags  std::string of triangle flags should contain "-c" unless the
     //     some subset of segments are known to enclose all other
     //     points/segments.
     // Outputs:

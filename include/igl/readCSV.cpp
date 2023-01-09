@@ -19,7 +19,6 @@ IGL_INLINE bool igl::readCSV(
   const std::string str, 
   Eigen::Matrix<Scalar,Eigen::Dynamic,Eigen::Dynamic>& M)
 {
-  using namespace std;
 
   std::vector<std::vector<Scalar> > Mt;
   
@@ -28,7 +27,7 @@ IGL_INLINE bool igl::readCSV(
   while (std::getline(infile, line))
   {
     std::istringstream iss(line);
-    vector<Scalar> temp;
+    std::vector<Scalar> temp;
     Scalar a;
     char ch;
     while (iss >> a){
@@ -58,7 +57,7 @@ IGL_INLINE bool igl::readCSV(
       for (unsigned j = 0; j<Mt[i].size(); ++j)
         M(i,j) = Mt[i][j];
     
-//    cerr << "TRUE!" << endl;
+//    cerr << "TRUE!" << std::endl;
     return true;
   }
   

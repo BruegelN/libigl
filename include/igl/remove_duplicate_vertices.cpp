@@ -53,7 +53,6 @@ IGL_INLINE void igl::remove_duplicate_vertices(
   Eigen::PlainObjectBase<DerivedSF>& SF)
 {
   using namespace Eigen;
-  using namespace std;
   remove_duplicate_vertices(V,epsilon,SV,SVI,SVJ);
   SF.resizeLike(F);
   for(int f = 0;f<F.rows();f++)

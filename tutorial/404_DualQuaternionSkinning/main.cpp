@@ -34,7 +34,6 @@ bool recompute = true;
 bool pre_draw(igl::opengl::glfw::Viewer & viewer)
 {
   using namespace Eigen;
-  using namespace std;
   if(recompute)
   {
     // Find pose interval
@@ -50,7 +49,7 @@ bool pre_draw(igl::opengl::glfw::Viewer & viewer)
     }
     // Propagate relative rotations via FK to retrieve absolute transformations
     RotationList vQ;
-    vector<Vector3d> vT;
+    std::vector<Vector3d> vT;
     igl::forward_kinematics(C,BE,P,anim_pose,vQ,vT);
     const int dim = C.cols();
     MatrixXd T(BE.rows()*(dim+1),dim);
@@ -110,7 +109,6 @@ bool key_down(igl::opengl::glfw::Viewer &viewer, unsigned char key, int mods)
 int main(int argc, char *argv[])
 {
   using namespace Eigen;
-  using namespace std;
   igl::readOBJ(TUTORIAL_SHARED_PATH "/arm.obj",V,F);
   U=V;
   igl::readTGF(TUTORIAL_SHARED_PATH "/arm.tgf",C,BE);
@@ -141,7 +139,7 @@ int main(int argc, char *argv[])
   viewer.core().is_animating = false;
   viewer.core().camera_zoom = 2.5;
   viewer.core().animation_max_fps = 30.;
-  cout<<"Press [d] to toggle between LBS and DQS"<<endl<<
-    "Press [space] to toggle animation"<<endl;
+  std::cout<<"Press [d] to toggle between LBS and DQS"<<std::endl<<
+    "Press [space] to toggle animation"<<std::endl;
   viewer.launch();
 }

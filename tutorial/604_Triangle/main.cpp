@@ -12,7 +12,6 @@ Eigen::MatrixXi F2;
 int main(int argc, char *argv[])
 {
   using namespace Eigen;
-  using namespace std;
 
   // Create the boundary of a square
   V.resize(8,2);

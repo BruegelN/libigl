@@ -22,7 +22,6 @@ IGL_INLINE void igl::unique_simplices(
   Eigen::PlainObjectBase<DerivedIC>& IC)
 {
   using namespace Eigen;
-  using namespace std;
   typedef Eigen::Matrix<typename DerivedF::Scalar,Eigen::Dynamic,Eigen::Dynamic>
     MatrixXI;
   // Sort each face

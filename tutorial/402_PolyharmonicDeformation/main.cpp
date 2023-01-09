@@ -58,7 +58,6 @@ bool key_down(igl::opengl::glfw::Viewer &viewer, unsigned char key, int mods)
 int main(int argc, char *argv[])
 {
   using namespace Eigen;
-  using namespace std;
   igl::readOBJ(TUTORIAL_SHARED_PATH "/bump-domain.obj",V,F);
   U=V;
   // Find boundary vertices outside annulus
@@ -67,7 +66,7 @@ int main(int argc, char *argv[])
   VectorXb is_inner = (V.rowwise().norm().array()-0.15)<1e-15;
   VectorXb in_b = is_outer.array() || is_inner.array();
   igl::colon<int>(0,V.rows()-1,b);
-  b.conservativeResize(stable_partition( b.data(), b.data()+b.size(),
+  b.conservativeResize(std::stable_partition( b.data(), b.data()+b.size(),
    [&in_b](int i)->bool{return in_b(i);})-b.data());
   bc.resize(b.size(),1);
   for(int bi = 0;bi<b.size();bi++)
@@ -102,9 +101,9 @@ int main(int argc, char *argv[])
   viewer.callback_key_down = &key_down;
   viewer.core().is_animating = true;
   viewer.core().animation_max_fps = 30.;
-  cout<<
-    "Press [space] to toggle animation."<<endl<<
-    "Press '.' to increase k."<<endl<<
-    "Press ',' to decrease k."<<endl;
+  std::cout<<
+    "Press [space] to toggle animation."<<std::endl<<
+    "Press '.' to increase k."<<std::endl<<
+    "Press ',' to decrease k."<<std::endl;
   viewer.launch();
 }

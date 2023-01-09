@@ -24,7 +24,6 @@ IGL_INLINE void igl::unique(
   std::vector<size_t> & IA,
   std::vector<size_t> & IC)
 {
-  using namespace std;
   std::vector<size_t> IM;
   std::vector<T> sortA;
   igl::sort(A,true,sortA,IM);
@@ -82,11 +81,10 @@ IGL_INLINE void igl::unique(
     Eigen::PlainObjectBase<DerivedIA> & IA,
     Eigen::PlainObjectBase<DerivedIC> & IC)
 {
-  using namespace std;
   using namespace Eigen;
-  vector<typename DerivedA::Scalar > vA;
-  vector<typename DerivedC::Scalar > vC;
-  vector<size_t> vIA,vIC;
+  std::vector<typename DerivedA::Scalar > vA;
+  std::vector<typename DerivedC::Scalar > vC;
+  std::vector<size_t> vIA,vIC;
   matrix_to_list(A,vA);
   unique(vA,vC,vIA,vIC);
   list_to_matrix(vC,C);
@@ -102,11 +100,10 @@ IGL_INLINE void igl::unique(
     const Eigen::MatrixBase<DerivedA> & A,
     Eigen::PlainObjectBase<DerivedC> & C)
 {
-  using namespace std;
   using namespace Eigen;
-  vector<typename DerivedA::Scalar > vA;
-  vector<typename DerivedC::Scalar > vC;
-  vector<size_t> vIA,vIC;
+  std::vector<typename DerivedA::Scalar > vA;
+  std::vector<typename DerivedC::Scalar > vC;
+  std::vector<size_t> vIA,vIC;
   matrix_to_list(A,vA);
   unique(vA,vC,vIA,vIC);
   list_to_matrix(vC,C);
@@ -120,10 +117,9 @@ IGL_INLINE void igl::unique(
 //   Eigen::PlainObjectBase<DerivedIA>& IA,
 //   Eigen::PlainObjectBase<DerivedIC>& IC)
 // {
-//   using namespace std;
-//
+//   //
 //   typedef Eigen::Matrix<typename DerivedA::Scalar, Eigen::Dynamic, 1> RowVector;
-//   vector<SortableRow<RowVector> > rows;
+//   std::vector<SortableRow<RowVector> > rows;
 //   rows.resize(A.rows());
 //   // Loop over rows
 //   for(int i = 0;i<A.rows();i++)
@@ -131,11 +127,11 @@ IGL_INLINE void igl::unique(
 //     RowVector ri = A.row(i);
 //     rows[i] = SortableRow<RowVector>(ri);
 //   }
-//   vector<SortableRow<RowVector> > vC;
+//   std::vector<SortableRow<RowVector> > vC;
 //
 //   // unique on rows
-//   vector<size_t> vIA;
-//   vector<size_t> vIC;
+//   std::vector<size_t> vIA;
+//   std::vector<size_t> vIC;
 //   unique(rows,vC,vIA,vIC);
 //
 //   // Convert to eigen
@@ -161,11 +157,10 @@ IGL_INLINE void igl::unique(
 //   Eigen::PlainObjectBase<DerivedIA>& IA,
 //   Eigen::PlainObjectBase<DerivedIC>& IC)
 // {
-//   using namespace std;
-//   // frequency map
+//   //   // frequency map
 //   typedef Eigen::Matrix<typename DerivedA::Scalar, Eigen::Dynamic, 1> RowVector;
 //   IC.resize(A.rows(),1);
-//   map<SortableRow<RowVector>, int> fm;
+//   std::map<SortableRow<RowVector>, int> fm;
 //   const int m = A.rows();
 //   for(int i = 0;i<m;i++)
 //   {
@@ -181,7 +176,7 @@ IGL_INLINE void igl::unique(
 //   C.resize(fm.size(),A.cols());
 //   {
 //     int i = 0;
-//     for(typename map<SortableRow<RowVector > , int >::const_iterator fit = fm.begin();
+//     for(typename std::map<SortableRow<RowVector > , int >::const_iterator fit = fm.begin();
 //         fit != fm.end();
 //         fit++)
 //     {

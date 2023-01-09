@@ -32,7 +32,6 @@ IGL_INLINE void igl::copyleft::cgal::snap_rounding(
   using namespace Eigen;
   using namespace igl;
   using namespace igl::copyleft::cgal;
-  using namespace std;
   // Exact scalar type
   typedef CGAL::Epeck Kernel;
   typedef Kernel::FT EScalar;
@@ -46,7 +45,7 @@ IGL_INLINE void igl::copyleft::cgal::snap_rounding(
   {
     VectorXi IM;
     resolve_intersections(V,E,VE,EI,J,IM);
-    for_each(
+    std::for_each(
       EI.data(),
       EI.data()+EI.size(),
       [&IM](typename DerivedEI::Scalar& i){i=IM(i);});
@@ -98,19 +97,19 @@ IGL_INLINE void igl::copyleft::cgal::snap_rounding(
     search(-1);
     return i;
   };
-  vector<Point_2> hot;
+  std::vector<Point_2> hot;
   for(int i = 0;i<VE.rows();i++)
   {
     hot.emplace_back(round(VE(i,0)),round(VE(i,1)));
   }
   {
     std::vector<size_t> _1,_2;
-    igl::unique(vector<Point_2>(hot),hot,_1,_2);
+    igl::unique(std::vector<Point_2>(hot),hot,_1,_2);
   }
 
   // find all segments intersecting hot pixels
   //   split edge at closest point to hot pixel center
-  vector<vector<Point_2>>  steiner(EI.rows());
+  std::vector<std::vector<Point_2>>  steiner(EI.rows());
   // initialize each segment with endpoints
   for(int i = 0;i<EI.rows();i++)
   {
@@ -143,7 +142,7 @@ IGL_INLINE void igl::copyleft::cgal::snap_rounding(
       }
       // otherwise check for intersections with walls consider all walls
       const Segment_2 si(s,d);
-      vector<Point_2> hits;
+      std::vector<Point_2> hits;
       for(int j = 0;j<4;j++)
       {
         const Segment_2 & sj = wall[j];
@@ -185,8 +184,8 @@ IGL_INLINE void igl::copyleft::cgal::snap_rounding(
     DerivedJ prevJ = J;
     VectorXi IM;
     subdivide_segments(MatrixXE(VE),MatrixXi(EI),steiner,VE,EI,J,IM);
-    for_each(J.data(),J.data()+J.size(),[&prevJ](typename DerivedJ::Scalar & j){j=prevJ(j);});
-    for_each(
+    std::for_each(J.data(),J.data()+J.size(),[&prevJ](typename DerivedJ::Scalar & j){j=prevJ(j);});
+    std::for_each(
       EI.data(),
       EI.data()+EI.size(),
       [&IM](typename DerivedEI::Scalar& i){i=IM(i);});

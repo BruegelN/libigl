@@ -158,7 +158,7 @@ namespace igl
       //   doc  pointer to xml document
       //   element  pointer to xml element
       //   name  name of matrix
-      //   from_string  function string to T
+      //   from_string  function std::string to T
       // Outputs:
       //   obj  MR by MC matrix of T types
       template<typename T,int R,int C,int P,int MR,int MC>

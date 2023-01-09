@@ -15,7 +15,6 @@ IGL_INLINE void igl::squared_edge_lengths(
   const Eigen::MatrixBase<DerivedF>& F,
   Eigen::PlainObjectBase<DerivedL>& L)
 {
-  using namespace std;
   const int m = F.rows();
   switch(F.cols())
   {
@@ -63,8 +62,8 @@ IGL_INLINE void igl::squared_edge_lengths(
     }
     default:
     {
-      cerr<< "squared_edge_lengths.h: Error: Simplex size ("<<F.cols()<<
-        ") not supported"<<endl;
+      std::cerr << "squared_edge_lengths.h: Error: Simplex size ("<<F.cols()<<
+        ") not supported"<<std::endl;
       assert(false);
     }
   }

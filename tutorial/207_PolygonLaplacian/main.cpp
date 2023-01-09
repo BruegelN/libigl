@@ -11,7 +11,6 @@
 int main(int argc, char *argv[])
 {
   using namespace Eigen;
-  using namespace std;
 
   // Load a mesh in OBJ format
   Eigen::MatrixXd OV,V;

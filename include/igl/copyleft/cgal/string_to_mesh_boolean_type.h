@@ -18,10 +18,10 @@ namespace igl
   {
     namespace cgal
     {
-      // Convert string to boolean type
+      // Convert std::string to boolean type
       //
       //  Inputs:
-      //    s  string identifying type, one of the following:
+      //    s  std::string identifying type, one of the following:
       //      "union","intersect","minus","xor","resolve"
       //  Outputs:
       //    type  type of boolean operation

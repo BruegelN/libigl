@@ -37,10 +37,9 @@ IGL_INLINE bool igl::min_quad_with_fixed_precompute(
 {
 //#define MIN_QUAD_WITH_FIXED_CPP_DEBUG
   using namespace Eigen;
-  using namespace std;
   const Eigen::SparseMatrix<T> A = 0.5*A2;
 #ifdef MIN_QUAD_WITH_FIXED_CPP_DEBUG
-  cout<<"    pre"<<endl;
+  std::cout<<"    pre"<<std::endl;
 #endif
   // number of rows
   int n = A.rows();
@@ -137,7 +136,7 @@ IGL_INLINE bool igl::min_quad_with_fixed_precompute(
   if(neq>0)
   {
 #ifdef MIN_QUAD_WITH_FIXED_CPP_DEBUG
-    cout<<"    qr"<<endl;
+    std::cout<<"    qr"<<std::endl;
 #endif
     // QR decomposition to determine row rank in Aequ
     slice(Aeq,data.unknown,2,data.Aequ);
@@ -147,27 +146,27 @@ IGL_INLINE bool igl::min_quad_with_fixed_precompute(
       "#cols in Aequ should match #unknowns");
     data.AeqTQR.compute(data.Aequ.transpose().eval());
 #ifdef MIN_QUAD_WITH_FIXED_CPP_DEBUG
-    //cout<<endl<<matlab_format(SparseMatrix<T>(data.Aequ.transpose().eval()),"AeqT")<<endl<<endl;
+    //cout<<std::endl<<matlab_format(SparseMatrix<T>(data.Aequ.transpose().eval()),"AeqT")<<std::endl<<std::endl;
 #endif
     switch(data.AeqTQR.info())
     {
       case Eigen::Success:
         break;
       case Eigen::NumericalIssue:
-        cerr<<"Error: Numerical issue."<<endl;
+        std::cerr<<"Error: Numerical issue."<<std::endl;
         return false;
       case Eigen::InvalidInput:
-        cerr<<"Error: Invalid input."<<endl;
+        std::cerr<<"Error: Invalid input."<<std::endl;
         return false;
       default:
-        cerr<<"Error: Other."<<endl;
+        std::cerr<<"Error: Other."<<std::endl;
         return false;
     }
     nc = data.AeqTQR.rank();
     assert(nc<=neq &&
       "Rank of reduced constraints should be <= #original constraints");
     data.Aeq_li = nc == neq;
-    //cout<<"data.Aeq_li: "<<data.Aeq_li<<endl;
+    //cout<<"data.Aeq_li: "<<data.Aeq_li<<std::endl;
   }else
   {
     data.Aeq_li = true;
@@ -176,7 +175,7 @@ IGL_INLINE bool igl::min_quad_with_fixed_precompute(
   if(data.Aeq_li)
   {
 #ifdef MIN_QUAD_WITH_FIXED_CPP_DEBUG
-    cout<<"    Aeq_li=true"<<endl;
+    std::cout<<"    Aeq_li=true"<<std::endl;
 #endif
     // Append lagrange multiplier quadratic terms
     SparseMatrix<T> new_A;
@@ -212,12 +211,12 @@ IGL_INLINE bool igl::min_quad_with_fixed_precompute(
     // Positive definite and no equality constraints (Positive definiteness
     // implies symmetric)
 #ifdef MIN_QUAD_WITH_FIXED_CPP_DEBUG
-    cout<<"    factorize"<<endl;
+    std::cout<<"    factorize"<<std::endl;
 #endif
     if(data.Auu_pd && neq == 0)
     {
 #ifdef MIN_QUAD_WITH_FIXED_CPP_DEBUG
-    cout<<"    llt"<<endl;
+    std::cout<<"    llt"<<std::endl;
 #endif
       data.llt.compute(Auu);
       switch(data.llt.info())
@@ -225,17 +224,17 @@ IGL_INLINE bool igl::min_quad_with_fixed_precompute(
         case Eigen::Success:
           break;
         case Eigen::NumericalIssue:
-          cerr<<"Error: Numerical issue."<<endl;
+          std::cerr<<"Error: Numerical issue."<<std::endl;
           return false;
         default:
-          cerr<<"Error: Other."<<endl;
+          std::cerr<<"Error: Other."<<std::endl;
           return false;
       }
       data.solver_type = min_quad_with_fixed_data<T>::LLT;
     }else
     {
 #ifdef MIN_QUAD_WITH_FIXED_CPP_DEBUG
-    cout<<"    ldlt"<<endl;
+    std::cout<<"    ldlt"<<std::endl;
 #endif
       // Either not PD or there are equality constraints
       SparseMatrix<T> NA;
@@ -252,17 +251,17 @@ IGL_INLINE bool igl::min_quad_with_fixed_precompute(
           case Eigen::Success:
             break;
           case Eigen::NumericalIssue:
-            cerr<<"Error: Numerical issue."<<endl;
+            std::cerr<<"Error: Numerical issue."<<std::endl;
             return false;
           default:
-            cerr<<"Error: Other."<<endl;
+            std::cerr<<"Error: Other."<<std::endl;
             return false;
         }
         data.solver_type = min_quad_with_fixed_data<T>::LDLT;
       }else
       {
 #ifdef MIN_QUAD_WITH_FIXED_CPP_DEBUG
-    cout<<"    lu"<<endl;
+    std::cout<<"    lu"<<std::endl;
 #endif
         // Resort to LU
         // Bottleneck >1/2
@@ -273,13 +272,13 @@ IGL_INLINE bool igl::min_quad_with_fixed_precompute(
           case Eigen::Success:
             break;
           case Eigen::NumericalIssue:
-            cerr<<"Error: Numerical issue."<<endl;
+            std::cerr<<"Error: Numerical issue."<<std::endl;
             return false;
           case Eigen::InvalidInput:
-            cerr<<"Error: Invalid Input."<<endl;
+            std::cerr<<"Error: Invalid Input."<<std::endl;
             return false;
           default:
-            cerr<<"Error: Other."<<endl;
+            std::cerr<<"Error: Other."<<std::endl;
             return false;
         }
         data.solver_type = min_quad_with_fixed_data<T>::LU;
@@ -288,36 +287,36 @@ IGL_INLINE bool igl::min_quad_with_fixed_precompute(
   }else
   {
 #ifdef MIN_QUAD_WITH_FIXED_CPP_DEBUG
-    cout<<"    Aeq_li=false"<<endl;
+    std::cout<<"    Aeq_li=false"<<std::endl;
 #endif
     data.neq = neq;
     const int nu = data.unknown.size();
-    //cout<<"nu: "<<nu<<endl;
-    //cout<<"neq: "<<neq<<endl;
-    //cout<<"nc: "<<nc<<endl;
-    //cout<<"    matrixR"<<endl;
+    //cout<<"nu: "<<nu<<std::endl;
+    //cout<<"neq: "<<neq<<std::endl;
+    //cout<<"nc: "<<nc<<std::endl;
+    //cout<<"    matrixR"<<std::endl;
     SparseMatrix<T> AeqTR,AeqTQ;
     AeqTR = data.AeqTQR.matrixR();
     // This shouldn't be necessary
     AeqTR.prune(static_cast<T>(0.0));
 #ifdef MIN_QUAD_WITH_FIXED_CPP_DEBUG
-    cout<<"    matrixQ"<<endl;
+    std::cout<<"    matrixQ"<<std::endl;
 #endif
     // THIS IS ESSENTIALLY DENSE AND THIS IS BY FAR THE BOTTLENECK
     // http://forum.kde.org/viewtopic.php?f=74&t=117500
     AeqTQ = data.AeqTQR.matrixQ();
 #ifdef MIN_QUAD_WITH_FIXED_CPP_DEBUG
-    cout<<"    prune"<<endl;
-    cout<<"      nnz: "<<AeqTQ.nonZeros()<<endl;
+    std::cout<<"    prune"<<std::endl;
+    std::cout<<"      nnz: "<<AeqTQ.nonZeros()<<std::endl;
 #endif
     // This shouldn't be necessary
     AeqTQ.prune(static_cast<T>(0.0));
-    //cout<<"AeqTQ: "<<AeqTQ.rows()<<" "<<AeqTQ.cols()<<endl;
-    //cout<<matlab_format(AeqTQ,"AeqTQ")<<endl;
-    //cout<<"    perms"<<endl;
+    //cout<<"AeqTQ: "<<AeqTQ.rows()<<" "<<AeqTQ.cols()<<std::endl;
+    //cout<<matlab_format(AeqTQ,"AeqTQ")<<std::endl;
+    //cout<<"    perms"<<std::endl;
 #ifdef MIN_QUAD_WITH_FIXED_CPP_DEBUG
-    cout<<"      nnz: "<<AeqTQ.nonZeros()<<endl;
-    cout<<"    perm"<<endl;
+    std::cout<<"      nnz: "<<AeqTQ.nonZeros()<<std::endl;
+    std::cout<<"    perm"<<std::endl;
 #endif
     SparseMatrix<T> I(neq,neq);
     I.setIdentity();
@@ -327,27 +326,27 @@ IGL_INLINE bool igl::min_quad_with_fixed_precompute(
     assert(AeqTR.cols() == neq  && "#cols in AeqTR should match #constraints");
     assert(AeqTQ.rows() == nu && "#rows in AeqTQ should match #unknowns");
     assert(AeqTQ.cols() == nu && "#cols in AeqTQ should match #unknowns");
-    //cout<<"    slice"<<endl;
+    //cout<<"    slice"<<std::endl;
 #ifdef MIN_QUAD_WITH_FIXED_CPP_DEBUG
-    cout<<"    slice"<<endl;
+    std::cout<<"    slice"<<std::endl;
 #endif
     data.AeqTQ1 = AeqTQ.topLeftCorner(nu,nc);
     data.AeqTQ1T = data.AeqTQ1.transpose().eval();
     // ALREADY TRIM (Not 100% sure about this)
     data.AeqTR1 = AeqTR.topLeftCorner(nc,nc);
     data.AeqTR1T = data.AeqTR1.transpose().eval();
-    //cout<<"AeqTR1T.size() "<<data.AeqTR1T.rows()<<" "<<data.AeqTR1T.cols()<<endl;
+    //cout<<"AeqTR1T.size() "<<data.AeqTR1T.rows()<<" "<<data.AeqTR1T.cols()<<std::endl;
     // Null space
     data.AeqTQ2 = AeqTQ.bottomRightCorner(nu,nu-nc);
     data.AeqTQ2T = data.AeqTQ2.transpose().eval();
 #ifdef MIN_QUAD_WITH_FIXED_CPP_DEBUG
-    cout<<"    proj"<<endl;
+    std::cout<<"    proj"<<std::endl;
 #endif
     // Projected hessian
     SparseMatrix<T> QRAuu = data.AeqTQ2T * Auu * data.AeqTQ2;
     {
 #ifdef MIN_QUAD_WITH_FIXED_CPP_DEBUG
-      cout<<"    factorize"<<endl;
+      std::cout<<"    factorize"<<std::endl;
 #endif
       // QRAuu should always be PD
       data.llt.compute(QRAuu);
@@ -356,16 +355,16 @@ IGL_INLINE bool igl::min_quad_with_fixed_precompute(
         case Eigen::Success:
           break;
         case Eigen::NumericalIssue:
-          cerr<<"Error: Numerical issue."<<endl;
+          std::cerr<<"Error: Numerical issue."<<std::endl;
           return false;
         default:
-          cerr<<"Error: Other."<<endl;
+          std::cerr<<"Error: Other."<<std::endl;
           return false;
       }
       data.solver_type = min_quad_with_fixed_data<T>::QR_LLT;
     }
 #ifdef MIN_QUAD_WITH_FIXED_CPP_DEBUG
-    cout<<"    smash"<<endl;
+    std::cout<<"    smash"<<std::endl;
 #endif
     // Known value multiplier
     SparseMatrix<T> Auk;
@@ -399,7 +398,6 @@ IGL_INLINE bool igl::min_quad_with_fixed_solve(
   Eigen::PlainObjectBase<DerivedZ> & Z,
   Eigen::PlainObjectBase<Derivedsol> & sol)
 {
-  using namespace std;
   using namespace Eigen;
   typedef Matrix<T,Dynamic,1> VectorXT;
   typedef Matrix<T,Dynamic,Dynamic> MatrixXT;
@@ -453,7 +451,7 @@ IGL_INLINE bool igl::min_quad_with_fixed_solve(
     }
 
     //std::cout<<"NB=["<<std::endl<<NB<<std::endl<<"];"<<std::endl;
-    //cout<<matlab_format(NB,"NB")<<endl;
+    //cout<<matlab_format(NB,"NB")<<std::endl;
     switch(data.solver_type)
     {
       case igl::min_quad_with_fixed_data<T>::LLT:
@@ -467,7 +465,7 @@ IGL_INLINE bool igl::min_quad_with_fixed_solve(
         sol = data.lu.solve(NB);
         break;
       default:
-        cerr<<"Error: invalid solver type"<<endl;
+        std::cerr<<"Error: invalid solver type"<<std::endl;
         return false;
     }
     //std::cout<<"sol=["<<std::endl<<sol<<std::endl<<"];"<<std::endl;
@@ -503,7 +501,7 @@ IGL_INLINE bool igl::min_quad_with_fixed_solve(
     // Now eff_Beq = (data.AeqTR1T \ (data.AeqTET * (-data.Aeqk * Y + Beq)))
     MatrixXT lambda_0;
     lambda_0 = data.AeqTQ1 * eff_Beq;
-    //cout<<matlab_format(lambda_0,"lambda_0")<<endl;
+    //cout<<matlab_format(lambda_0,"lambda_0")<<std::endl;
     MatrixXT QRB;
     QRB = -data.AeqTQ2T * (data.Auu * lambda_0) + data.AeqTQ2T * NB;
     Derivedsol lambda;
@@ -517,7 +515,7 @@ IGL_INLINE bool igl::min_quad_with_fixed_solve(
       Derivedsol temp1,temp2;
       temp1 = (data.AeqTQ1T * NB - data.AeqTQ1T * data.Auu * solu);
       data.AeqTR1.template triangularView<Upper>().solveInPlace(temp1);
-      //cout<<matlab_format(temp1,"temp1")<<endl;
+      //cout<<matlab_format(temp1,"temp1")<<std::endl;
       temp2 = Derivedsol::Zero(neq,cols);
       temp2.topLeftCorner(nc,cols) = temp1;
       //solLambda = data.AeqTQR.colsPermutation() * temp2;

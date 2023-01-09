@@ -307,7 +307,6 @@ inline igl::copyleft::cgal::SelfIntersectMesh<
   offending(),
   params(params)
 {
-  using namespace std;
   using namespace Eigen;
 
 #ifdef IGL_SELFINTERSECTMESH_TIMING
@@ -429,7 +428,6 @@ inline void igl::copyleft::cgal::SelfIntersectMesh<
   DerivedJ,
   DerivedIM>::mark_offensive(const Index f)
 {
-  using namespace std;
   lIF.push_back(f);
   if(offending.count(f) == 0)
   {
@@ -570,7 +568,6 @@ inline bool igl::copyleft::cgal::SelfIntersectMesh<
   const Index va)
 {
   // This was not a good idea. It will not handle coplanar triangles well.
-  using namespace std;
   Segment_3 sa(
     A.vertex((va+1)%3),
     A.vertex((va+2)%3));
@@ -605,7 +602,7 @@ inline bool igl::copyleft::cgal::SelfIntersectMesh<
       return true;
     }else
     {
-      cerr<<REDRUM("Segment ∩ triangle neither point nor segment?")<<endl;
+      std::cerr<<REDRUM("Segment ∩ triangle neither point nor segment?")<<std::endl;
       assert(false);
     }
   }
@@ -638,7 +635,6 @@ inline bool igl::copyleft::cgal::SelfIntersectMesh<
   const Index fb,
   const std::vector<std::pair<Index,Index> > shared)
 {
-  using namespace std;
 
   // must be co-planar
   if(

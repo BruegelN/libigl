@@ -29,9 +29,8 @@ IGL_INLINE bool igl::copyleft::tetgen::read_into_tetgenio(
   const std::string & path,
   tetgenio & in)
 {
-  using namespace std;
   // get file extension
-  string dirname,basename,ext,filename;
+  std::string dirname,basename,ext,filename;
   pathinfo(path,dirname,basename,ext,filename);
   // convert to lower case for easy comparison
   transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
@@ -43,8 +42,8 @@ IGL_INLINE bool igl::copyleft::tetgen::read_into_tetgenio(
   if(ext == "obj")
   {
     // read obj into vertex list and face list
-    vector<vector<REAL> > V,TC,N;
-    vector<vector<int>  > F,FTC,FN;
+    std::vector<std::vector<REAL> > V,TC,N;
+    std::vector<std::vector<int>  > F,FTC,FN;
     success = readOBJ(path,V,TC,N,F,FTC,FN);
     success &= mesh_to_tetgenio(V,F,in);
   }else if(ext == "off")
@@ -57,8 +56,8 @@ IGL_INLINE bool igl::copyleft::tetgen::read_into_tetgenio(
   {
     if(ext.length() > 0)
     {
-      cerr<<"^read_into_tetgenio Warning: Unsupported extension ("<<ext<<
-        "): try to load as basename..."<<endl;
+      std::cerr<<"^read_into_tetgenio Warning: Unsupported extension ("<<ext<<
+        "): try to load as basename..."<<std::endl;
     }
     // This changed as of (the so far unreleased) tetgen 1.5
     //success = in.load_tetmesh(basename_char);

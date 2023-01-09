@@ -9,7 +9,7 @@ namespace igl
 namespace opengl
 {
 
-// The string below is a compression of a 256x256x256 font atlas where each pixel's grayscale value is represented by a byte.
+// The std::string below is a compression of a 256x256x256 font atlas where each pixel's grayscale value is represented by a byte.
 // Source font atlas: https://github.com/prideout/recipes/blob/master/verasansmono.png
 // The compression below is a pair: hex_value_of_pixel-recurrence_in_hex. If recurrence_in_hex==1,
 // it was not appended to the pair and only the pixel value constitutes the item in the list.

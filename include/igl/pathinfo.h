@@ -22,12 +22,12 @@ namespace igl
   // Function like PHP's pathinfo
   //  returns information about path
   // Input:
-  //  path  string containing input path
+  //  path  std::string containing input path
   // Outputs:
-  //  dirname  string containing dirname (see dirname.h)
-  //  basename  string containing basename (see basename.h)
-  //  extension  string containing extension (characters after last '.')
-  //  filename  string containing filename (characters of basename before last
+  //  dirname  std::string containing dirname (see dirname.h)
+  //  basename  std::string containing basename (see basename.h)
+  //  extension  std::string containing extension (characters after last '.')
+  //  filename  std::string containing filename (characters of basename before last
   //    '.')
   //
   //

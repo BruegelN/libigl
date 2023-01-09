@@ -10,14 +10,13 @@
 int main(int argc, char * argv[])
 {
   using namespace Eigen;
-  using namespace std;
   using namespace igl;
   MatrixXi F;
   MatrixXd V;
   // Read in inputs as double precision floating point meshes
   read_triangle_mesh(
       TUTORIAL_SHARED_PATH "/armadillo.obj",V,F);
-  cout<<"Creating grid..."<<endl;
+  std::cout<<"Creating grid..."<<std::endl;
   // number of vertices on the largest side
   const int s = 100;
   // create grid
@@ -26,7 +25,7 @@ int main(int argc, char * argv[])
   igl::voxel_grid(V,0,s,1,GV,res);
  
   // compute values
-  cout<<"Computing distances..."<<endl;
+  std::cout<<"Computing distances..."<<std::endl;
   VectorXd S,B;
   {
     VectorXi I;
@@ -34,15 +33,15 @@ int main(int argc, char * argv[])
     signed_distance(GV,V,F,SIGNED_DISTANCE_TYPE_PSEUDONORMAL,S,I,C,N);
     // Convert distances to binary inside-outside data --> aliasing artifacts
     B = S;
-    for_each(B.data(),B.data()+B.size(),[](double& b){b=(b>0?1:(b<0?-1:0));});
+    std::for_each(B.data(),B.data()+B.size(),[](double& b){b=(b>0?1:(b<0?-1:0));});
   }
-  cout<<"Marching cubes..."<<endl;
+  std::cout<<"Marching cubes..."<<std::endl;
   MatrixXd SV,BV;
   MatrixXi SF,BF;
   igl::marching_cubes(S,GV,res(0),res(1),res(2),0,SV,SF);
   igl::marching_cubes(B,GV,res(0),res(1),res(2),0,BV,BF);
 
-  cout<<R"(Usage:
+  std::cout<<R"(Usage:
 '1'  Show original mesh.
 '2'  Show marching cubes contour of signed distance.
 '3'  Show marching cubes contour of indicator function.

@@ -30,7 +30,6 @@ IGL_INLINE bool igl::mosek::bbw(
   Eigen::PlainObjectBase<DerivedW> & W
   )
 {
-  using namespace std;
   using namespace Eigen;
   assert(!data.partition_unity && "partition_unity not implemented yet");
   // number of domain vertices
@@ -54,8 +53,8 @@ IGL_INLINE bool igl::mosek::bbw(
   {
     if(data.verbosity >= 1)
     {
-      cout<<"BBW: Computing weight for handle "<<i+1<<" out of "<<m<<
-        "."<<endl;
+      std::cout<<"BBW: Computing weight for handle "<<i+1<<" out of "<<m<<
+        "."<<std::endl;
     }
     VectorXd bci = bc.col(i);
     VectorXd Wi;
@@ -73,8 +72,8 @@ IGL_INLINE bool igl::mosek::bbw(
     const double min_rowsum = W.rowwise().sum().array().abs().minCoeff();
     if(min_rowsum < 0.1)
     {
-      cerr<<"bbw.cpp: Warning, minimum row sum is very low. Consider more "
-        "active set iterations or enforcing partition of unity."<<endl;
+      std::cerr<<"bbw.cpp: Warning, minimum row sum is very low. Consider more "
+        "active set iterations or enforcing partition of unity."<<std::endl;
     }
 #endif
 

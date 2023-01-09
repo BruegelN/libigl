@@ -25,7 +25,6 @@ enum OverLayType
 void update_visualization(igl::opengl::glfw::Viewer & viewer)
 {
   using namespace Eigen;
-  using namespace std;
   Eigen::Vector4d plane(
     0,0,1,-((1-slice_z)*V.col(2).minCoeff()+slice_z*V.col(2).maxCoeff()));
   MatrixXd V_vis;
@@ -100,13 +99,12 @@ bool key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int mod)
 int main(int argc, char *argv[])
 {
   using namespace Eigen;
-  using namespace std;
 
-  cout<<"Usage:"<<endl;
-  cout<<"[space]  toggle showing input mesh, output mesh or slice "<<endl;
-  cout<<"         through tet-mesh of convex hull."<<endl;
-  cout<<"'.'/','  push back/pull forward slicing plane."<<endl;
-  cout<<endl;
+  std::cout<<"Usage:"<<std::endl;
+  std::cout<<"[space]  toggle showing input mesh, output mesh or slice "<<std::endl;
+  std::cout<<"         through tet-mesh of convex hull."<<std::endl;
+  std::cout<<"'.'/','  push back/pull forward slicing plane."<<std::endl;
+  std::cout<<std::endl;
 
   // Load mesh: (V,T) tet-mesh of convex hull, F contains facets of input
   // surface mesh _after_ self-intersection resolution
@@ -116,7 +114,7 @@ int main(int argc, char *argv[])
   igl::barycenter(V,T,BC);
 
   // Compute generalized winding number at all barycenters
-  cout<<"Computing winding number over all "<<T.rows()<<" tets..."<<endl;
+  std::cout<<"Computing winding number over all "<<T.rows()<<" tets..."<<std::endl;
   igl::winding_number(V,F,BC,W);
 
   // Extract interior tets

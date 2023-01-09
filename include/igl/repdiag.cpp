@@ -14,12 +14,11 @@ IGL_INLINE void igl::repdiag(
   const int d,
   Eigen::SparseMatrix<T>& B)
 {
-  using namespace std;
   using namespace Eigen;
   int m = A.rows();
   int n = A.cols();
 #if false
-  vector<Triplet<T> > IJV;
+  std::vector<Triplet<T> > IJV;
   IJV.reserve(A.nonZeros()*d);
   // Loop outer level
   for (int k=0; k<A.outerSize(); ++k)

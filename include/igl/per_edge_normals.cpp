@@ -30,7 +30,6 @@ IGL_INLINE void igl::per_edge_normals(
 
 {
   using namespace Eigen;
-  using namespace std;
   assert(F.cols() == 3 && "Faces must be triangles");
   // number of faces
   const int m = F.rows();

@@ -11,7 +11,6 @@
 int main(int argc, char *argv[])
 {
   using namespace Eigen;
-  using namespace std;
   Eigen::MatrixXd V;
   Eigen::MatrixXi F;
   igl::opengl::glfw::Viewer viewer;
@@ -67,7 +66,7 @@ int main(int argc, char *argv[])
   viewer.data().set_mesh(V,F);
   viewer.data().show_lines = false;
 
-  cout << "Click on mesh to define new source.\n" << std::endl;
+  std::cout << "Click on mesh to define new source.\n" << std::endl;
   update_distance(0);
   return viewer.launch();
 }

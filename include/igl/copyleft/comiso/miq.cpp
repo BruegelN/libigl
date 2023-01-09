@@ -406,7 +406,7 @@ singular(_singular),
 seams(_seams)
 {
   #ifdef DEBUG_PRINT
-  cerr<<igl::matlab_format(Handle_Seams,"Handle_Seams");
+  std::cerrigl::matlab_format(Handle_Seams,"Handle_Seams");
 #endif
 
   systemInfo.num_vert_variables=Vcut.rows();

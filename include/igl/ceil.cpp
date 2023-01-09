@@ -13,7 +13,6 @@ IGL_INLINE void igl::ceil(
   const Eigen::PlainObjectBase<DerivedX>& X,
   Eigen::PlainObjectBase<DerivedY>& Y)
 {
-  using namespace std;
   //Y = DerivedY::Zero(m,n);
 //#pragma omp parallel for
   //for(int i = 0;i<m;i++)

@@ -17,7 +17,6 @@ IGL_INLINE void igl::bfs_orient(
   Eigen::PlainObjectBase<DerivedC> & C)
 {
   using namespace Eigen;
-  using namespace std;
   SparseMatrix<typename DerivedF::Scalar> A;
   orientable_patches(F,C,A);
 
@@ -38,7 +37,7 @@ IGL_INLINE void igl::bfs_orient(
 #pragma omp parallel for
   for(int c = 0;c<num_cc;c++)
   {
-    queue<typename DerivedF::Scalar> Q;
+    std::queue<typename DerivedF::Scalar> Q;
     // find first member of patch c
     for(int f = 0;f<FF.rows();f++)
     {

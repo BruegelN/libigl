@@ -129,13 +129,12 @@ inline igl::WindingNumberAABB<Point,DerivedV,DerivedF>::WindingNumberAABB(
 template <typename Point, typename DerivedV, typename DerivedF>
 inline void igl::WindingNumberAABB<Point,DerivedV,DerivedF>::grow()
 {
-  using namespace std;
   using namespace Eigen;
   // Clear anything that already exists
   this->delete_children();
 
-  //cout<<"cap.rows(): "<<this->getcap().rows()<<endl;
-  //cout<<"F.rows(): "<<this->getF().rows()<<endl;
+  //cout<<"cap.rows(): "<<this->getcap().rows()<<std::endl;
+  //cout<<"F.rows(): "<<this->getF().rows()<<std::endl;
 
   // Base cases
   if(
@@ -149,7 +148,7 @@ inline void igl::WindingNumberAABB<Point,DerivedV,DerivedF>::grow()
   // Compute longest direction
   int max_d = -1;
   typename DerivedV::Scalar max_len = 
-    -numeric_limits<typename DerivedV::Scalar>::infinity();
+    -std::numeric_limits<typename DerivedV::Scalar>::infinity();
   for(int d = 0;d<min_corner.size();d++)
   {
     if( (max_corner[d] - min_corner[d]) > max_len )
@@ -180,9 +179,9 @@ inline void igl::WindingNumberAABB<Point,DerivedV,DerivedF>::grow()
       break;
   }
   //cout<<"c: "<<0.5*(max_corner[max_d] + min_corner[max_d])<<" "<<
-  //  "m: "<<split_value<<endl;;
+  //  "m: "<<split_value<<std::endl;;
 
-  vector<int> id( this->getF().rows());
+  std::vector<int> id( this->getF().rows());
   for(int i = 0;i<this->getF().rows();i++)
   {
     if(BC(i,max_d) <= split_value)
@@ -253,12 +252,11 @@ inline bool igl::WindingNumberAABB<Point,DerivedV,DerivedF>::inside(const Point 
 template <typename Point, typename DerivedV, typename DerivedF>
 inline void igl::WindingNumberAABB<Point,DerivedV,DerivedF>::compute_min_max_corners()
 {
-  using namespace std;
   // initialize corners
   for(int d = 0;d<min_corner.size();d++)
   {
-    min_corner[d] =  numeric_limits<typename Point::Scalar>::infinity();
-    max_corner[d] = -numeric_limits<typename Point::Scalar>::infinity();
+    min_corner[d] =  std::numeric_limits<typename Point::Scalar>::infinity();
+    max_corner[d] = -std::numeric_limits<typename Point::Scalar>::infinity();
   }
 
   this->center = Point(0,0,0);
@@ -284,11 +282,11 @@ inline void igl::WindingNumberAABB<Point,DerivedV,DerivedF>::compute_min_max_cor
   // Average
   this->center.array() /= this->getF().size();
 
-  //cout<<"min_corner: "<<this->min_corner.transpose()<<endl;
-  //cout<<"Center: "<<this->center.transpose()<<endl;
-  //cout<<"max_corner: "<<this->max_corner.transpose()<<endl;
-  //cout<<"Diag center: "<<((this->max_corner + this->min_corner)*0.5).transpose()<<endl;
-  //cout<<endl;
+  //cout<<"min_corner: "<<this->min_corner.transpose()<<std::endl;
+  //cout<<"Center: "<<this->center.transpose()<<std::endl;
+  //cout<<"max_corner: "<<this->max_corner.transpose()<<std::endl;
+  //cout<<"Diag center: "<<((this->max_corner + this->min_corner)*0.5).transpose()<<std::endl;
+  //cout<<std::endl;
 
   this->radius = (max_corner-min_corner).norm()/2.0;
 }
@@ -297,15 +295,14 @@ template <typename Point, typename DerivedV, typename DerivedF>
 inline typename DerivedV::Scalar
 igl::WindingNumberAABB<Point,DerivedV,DerivedF>::max_abs_winding_number(const Point & p) const
 {
-  using namespace std;
   // Only valid if not inside
   if(inside(p))
   {
-    return numeric_limits<typename DerivedV::Scalar>::infinity();
+    return std::numeric_limits<typename DerivedV::Scalar>::infinity();
   }
   // Q: we know the total positive area so what's the most this could project
   // to? Remember it could be layered in the same direction.
-  return numeric_limits<typename DerivedV::Scalar>::infinity();
+  return std::numeric_limits<typename DerivedV::Scalar>::infinity();
 }
 
 template <typename Point, typename DerivedV, typename DerivedF>
@@ -313,12 +310,11 @@ inline typename DerivedV::Scalar
   igl::WindingNumberAABB<Point,DerivedV,DerivedF>::max_simple_abs_winding_number(
   const Point & p) const
 {
-  using namespace std;
   using namespace Eigen;
   // Only valid if not inside
   if(inside(p))
   {
-    return numeric_limits<typename DerivedV::Scalar>::infinity();
+    return std::numeric_limits<typename DerivedV::Scalar>::infinity();
   }
   // Max simple is the same as sum of positive winding number contributions of
   // bounding box

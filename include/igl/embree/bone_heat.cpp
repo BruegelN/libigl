@@ -23,7 +23,6 @@ bool igl::embree::bone_heat(
   const Eigen::MatrixXi & CE,
   Eigen::MatrixXd & W)
 {
-  using namespace std;
   using namespace Eigen;
   assert(CE.rows() == 0 && "Cage edges not supported.");
   assert(C.cols() == V.cols() && "V and C should have same #cols");
@@ -74,7 +73,7 @@ bool igl::embree::bone_heat(
 
   if(CE.rows() > 0)
   {
-    cerr<<"Error: Cage edges are not supported. Ignored."<<endl;
+    std::cerr<<"Error: Cage edges are not supported. Ignored."<<std::endl;
   }
 
   MatrixXd PP = MatrixXd::Zero(n,m);
@@ -103,10 +102,10 @@ bool igl::embree::bone_heat(
     case Eigen::Success:
       break;
     case Eigen::NumericalIssue:
-      cerr<<"Error: Numerical issue."<<endl;
+      std::cerr<<"Error: Numerical issue."<<std::endl;
       return false;
     default:
-      cerr<<"Error: Other."<<endl;
+      std::cerr<<"Error: Other."<<std::endl;
       return false;
   }
 

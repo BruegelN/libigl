@@ -20,7 +20,6 @@ IGL_INLINE void igl::fit_rotations(
   const bool single_precision,
   Eigen::PlainObjectBase<DerivedD> & R)
 {
-  using namespace std;
   const int dim = S.cols();
   const int nr = S.rows()/dim;
   assert(nr * dim == S.rows());
@@ -57,8 +56,8 @@ IGL_INLINE void igl::fit_rotations(
     }
     assert(ri.determinant() >= 0);
     R.block(0,r*dim,dim,dim) = ri.block(0,0,dim,dim).transpose();
-    //cout<<matlab_format(si,C_STR("si_"<<r))<<endl;
-    //cout<<matlab_format(ri.transpose().eval(),C_STR("ri_"<<r))<<endl;
+    //cout<<matlab_format(si,C_STR("si_"<<r))<<std::endl;
+    //cout<<matlab_format(ri.transpose().eval(),C_STR("ri_"<<r))<<std::endl;
   }
 }
 
@@ -67,7 +66,6 @@ IGL_INLINE void igl::fit_rotations_planar(
   const Eigen::PlainObjectBase<DerivedS> & S,
         Eigen::PlainObjectBase<DerivedD> & R)
 { 
-  using namespace std;
   const int dim = S.cols();
   const int nr = S.rows()/dim;
   //assert(dim == 2 && "_planar input should be 2D");

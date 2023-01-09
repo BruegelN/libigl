@@ -16,10 +16,10 @@ namespace igl
   namespace opengl
   {
     // Convert a GL uniform variable type (say, returned from
-    // glGetActiveUniform) and output a string naming that type
+    // glGetActiveUniform) and output a std::string naming that type
     // Inputs:
     //   type  enum for given type
-    // Returns string name of that type
+    // Returns std::string name of that type
     IGL_INLINE std::string uniform_type_to_string(const GLenum type);
   }
 }

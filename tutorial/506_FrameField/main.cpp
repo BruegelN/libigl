@@ -70,7 +70,6 @@ void line_texture(Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic> &te
 
 bool key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int modifier)
 {
-  using namespace std;
   using namespace Eigen;
 
   if (key <'1' || key >'6')

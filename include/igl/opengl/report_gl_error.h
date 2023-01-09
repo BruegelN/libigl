@@ -21,7 +21,7 @@ namespace igl
   {
     // Print last OpenGL error to stderr prefixed by specified id string
     // Inputs:
-    //   id   string to appear before any error msgs
+    //   id   std::string to appear before any error msgs
     // Returns result of glGetError() 
     IGL_INLINE GLenum report_gl_error(const std::string id);
     // No prefix

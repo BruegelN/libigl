@@ -51,7 +51,6 @@ IGL_INLINE bool igl::writeMESH(
   const Eigen::MatrixBase<DerivedT> & T,
   const Eigen::MatrixBase<DerivedF> & F)
 {
-  using namespace std;
   using namespace Eigen;
 
   //// This is (surprisingly) slower than the C-ish code below
@@ -59,7 +58,7 @@ IGL_INLINE bool igl::writeMESH(
   //mesh_file.open(str.c_str());
   //if(!mesh_file.is_open())
   //{
-  //  cerr<<"IOError: "<<str<<" could not be opened..."<<endl;
+  //  std::cerr<<"IOError: "<<str<<" could not be opened..."<<std::endl;
   //  return false;
   //}
   //IOFormat format(FullPrecision,DontAlignCols," ","\n",""," 1","","");

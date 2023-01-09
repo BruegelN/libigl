@@ -16,7 +16,6 @@ Eigen::VectorXd AO;
 bool key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int modifier)
 {
   using namespace Eigen;
-  using namespace std;
   const RowVector3d color(0.9,0.85,0.9);
   switch(key)
   {
@@ -49,13 +48,12 @@ bool key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int modifier
 
 int main(int argc, char *argv[])
 {
-  using namespace std;
   using namespace Eigen;
-  cout<<
-    "Press 1 to turn off Ambient Occlusion"<<endl<<
-    "Press 2 to turn on Ambient Occlusion"<<endl<<
-    "Press . to turn up lighting"<<endl<<
-    "Press , to turn down lighting"<<endl;
+  std::cout<<
+    "Press 1 to turn off Ambient Occlusion"<<std::endl<<
+    "Press 2 to turn on Ambient Occlusion"<<std::endl<<
+    "Press . to turn up lighting"<<std::endl<<
+    "Press , to turn down lighting"<<std::endl;
 
   // Load a mesh in OFF format
   igl::readOFF(TUTORIAL_SHARED_PATH "/fertility.off", V, F);

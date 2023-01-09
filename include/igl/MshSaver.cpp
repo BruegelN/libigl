@@ -175,7 +175,7 @@ IGL_INLINE void igl::MshSaver::save_elements(const IndexVector& elements,
 IGL_INLINE void igl::MshSaver::save_scalar_field(const std::string& fieldname, const FloatVector& field) {
     assert(field.size() == m_num_nodes);
     fout << "$NodeData" << std::endl;
-    fout << "1" << std::endl; // num string tags.
+    fout << "1" << std::endl; // num std::string tags.
     fout << "\"" << fieldname << "\"" << std::endl;
     fout << "1" << std::endl; // num real tags.
     fout << "0.0" << std::endl; // time value.
@@ -204,7 +204,7 @@ IGL_INLINE void igl::MshSaver::save_vector_field(const std::string& fieldname, c
     assert(field.size() == 3 * m_num_nodes);
 
     fout << "$NodeData" << std::endl;
-    fout << "1" << std::endl; // num string tags.
+    fout << "1" << std::endl; // num std::string tags.
     fout << "\"" << fieldname << "\"" << std::endl;
     fout << "1" << std::endl; // num real tags.
     fout << "0.0" << std::endl; // time value.
@@ -237,7 +237,7 @@ IGL_INLINE void igl::MshSaver::save_vector_field(const std::string& fieldname, c
 IGL_INLINE void igl::MshSaver::save_elem_scalar_field(const std::string& fieldname, const FloatVector& field) {
     assert(field.size() == m_num_elements);
     fout << "$ElementData" << std::endl;
-    fout << 1 << std::endl; // num string tags.
+    fout << 1 << std::endl; // num std::string tags.
     fout << "\"" << fieldname << "\"" << std::endl;
     fout << "1" << std::endl; // num real tags.
     fout << "0.0" << std::endl; // time value.
@@ -266,7 +266,7 @@ IGL_INLINE void igl::MshSaver::save_elem_scalar_field(const std::string& fieldna
 IGL_INLINE void igl::MshSaver::save_elem_vector_field(const std::string& fieldname, const FloatVector& field) {
     assert(field.size() == m_num_elements * 3);
     fout << "$ElementData" << std::endl;
-    fout << 1 << std::endl; // num string tags.
+    fout << 1 << std::endl; // num std::string tags.
     fout << "\"" << fieldname << "\"" << std::endl;
     fout << "1" << std::endl; // num real tags.
     fout << "0.0" << std::endl; // time value.
@@ -301,7 +301,7 @@ IGL_INLINE void igl::MshSaver::save_elem_vector_field(const std::string& fieldna
 IGL_INLINE void igl::MshSaver::save_elem_tensor_field(const std::string& fieldname, const FloatVector& field) {
     assert(field.size() == m_num_elements * 3 * (3 + 1) / 2);
     fout << "$ElementData" << std::endl;
-    fout << 1 << std::endl; // num string tags.
+    fout << 1 << std::endl; // num std::string tags.
     fout << "\"" << fieldname << "\"" << std::endl;
     fout << "1" << std::endl; // num real tags.
     fout << "0.0" << std::endl; // time value.

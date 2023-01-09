@@ -15,7 +15,6 @@ IGL_INLINE void igl::in_element(
   const AABB<DerivedV,DIM> & aabb,
   Eigen::VectorXi & I)
 {
-  using namespace std;
   using namespace Eigen;
   const int Qr = Q.rows();
   I.setConstant(Qr,1,-1);
@@ -39,7 +38,6 @@ IGL_INLINE void igl::in_element(
   const AABB<DerivedV,DIM> & aabb,
   Eigen::SparseMatrix<Scalar> & I)
 {
-  using namespace std;
   using namespace Eigen;
   const int Qr = Q.rows();
   std::vector<Triplet<Scalar> > IJV;

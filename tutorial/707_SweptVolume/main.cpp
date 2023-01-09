@@ -10,7 +10,6 @@
 
 int main(int argc, char * argv[])
 {
-  using namespace std;
   using namespace igl;
   Eigen::MatrixXi F,SF;
   Eigen::MatrixXd V,SV,VT;
@@ -26,7 +25,7 @@ int main(int argc, char * argv[])
   // Read in inputs as double precision floating point meshes
   read_triangle_mesh(
       TUTORIAL_SHARED_PATH "/bunny.off",V,F);
-  cout<<R"(Usage:
+  std::cout<<R"(Usage:
 [space]  Toggle between transforming original mesh and swept volume
 )";
   igl::opengl::glfw::Viewer viewer;

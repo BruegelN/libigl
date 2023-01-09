@@ -35,7 +35,6 @@ IGL_INLINE void igl::copyleft::cgal::subdivide_segments(
 {
   using namespace Eigen;
   using namespace igl;
-  using namespace std;
 
   // Exact scalar type
   typedef Kernel K;
@@ -128,7 +127,7 @@ IGL_INLINE void igl::copyleft::cgal::subdivide_segments(
     std::vector<size_t> vA,vIM;
     igl::unique(vVES,_1,vA,vIM);
     // Push indices back into vVES
-    for_each(vIM.data(),vIM.data()+vIM.size(),[&vA](size_t & i){i=vA[i];});
+    std::for_each(vIM.data(),vIM.data()+vIM.size(),[&vA](size_t & i){i=vA[i];});
     list_to_matrix(vIM,IM);
   }
 }

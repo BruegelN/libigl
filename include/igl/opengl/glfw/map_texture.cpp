@@ -44,7 +44,7 @@ IGL_INLINE bool igl::opengl::glfw::map_texture(
 {
   const auto fail = [](const std::string msg)
   {
-    std::cerr<<msg<<std::endl;
+    std::cerrmsg<<std::endl;
     glfwTerminate();
     return false;
   };

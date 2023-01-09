@@ -21,7 +21,6 @@ IGL_INLINE bool igl::copyleft::tetgen::mesh_to_tetgenio(
   const std::vector<std::vector<REAL> > & R, 
   tetgenio & in)
 {
-  using namespace std;
   in.firstnumber = 0;
   in.numberofpoints = V.size();
   in.pointlist = new REAL[in.numberofpoints * 3];
@@ -90,9 +89,8 @@ IGL_INLINE bool igl::copyleft::tetgen::mesh_to_tetgenio(
   const Eigen::PlainObjectBase<DerivedR>& R,
   tetgenio & in)
 {
-  using namespace std;
-  vector<vector<REAL> > vV, vH, vR;
-  vector<vector<int> > vF;
+    std::vector<std::vector<REAL> > vV, vH, vR;
+  std::vector<std::vector<int> > vF;
   matrix_to_list(V,vV);
   matrix_to_list(F,vF);
   matrix_to_list(H, vH);
@@ -106,7 +104,6 @@ IGL_INLINE bool igl::copyleft::tetgen::mesh_to_tetgenio(
   const std::vector<std::vector<int> > & F, 
   tetgenio & in)
 {
-  using namespace std;
   // all indices start from 0
   in.firstnumber = 0;
 
@@ -152,9 +149,8 @@ IGL_INLINE bool igl::copyleft::tetgen::mesh_to_tetgenio(
   const Eigen::PlainObjectBase<DerivedF>& F,
   tetgenio & in)
 {
-  using namespace std;
-  vector<vector<REAL> > vV;
-  vector<vector<int> > vF;
+    std::vector<std::vector<REAL> > vV;
+  std::vector<std::vector<int> > vF;
   matrix_to_list(V,vV);
   matrix_to_list(F,vF);
   return mesh_to_tetgenio(vV,vF,in);

@@ -16,8 +16,8 @@ namespace igl
 {
   // Function like PHP's dirname: /etc/passwd --> /etc, 
   // Input:
-  //  path  string containing input path
-  // Returns string containing dirname (see php's dirname)
+  //  path  std::string containing input path
+  // Returns std::string containing dirname (see php's dirname)
   //
   // See also: basename, pathinfo
   //

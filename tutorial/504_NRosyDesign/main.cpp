@@ -30,7 +30,6 @@ void representative_to_nrosy(
   Eigen::MatrixXd& Y)
 {
   using namespace Eigen;
-  using namespace std;
   MatrixXd B1, B2, B3;
 
   igl::local_basis(V,F,B1,B2,B3);
@@ -64,7 +63,6 @@ void plot_mesh_nrosy(
   Eigen::VectorXi& b)
 {
   using namespace Eigen;
-  using namespace std;
   // Clear the mesh
   viewer.data().clear();
   viewer.data().set_mesh(V,F);
@@ -104,7 +102,6 @@ void plot_mesh_nrosy(
 bool key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int modifier)
 {
   using namespace Eigen;
-  using namespace std;
   if (key >= '1' && key <= '9')
     N = key - '0';
 
@@ -119,7 +116,6 @@ bool key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int modifier
 
 int main(int argc, char *argv[])
 {
-  using namespace std;
   using namespace Eigen;
 
   // Load a mesh in OFF format

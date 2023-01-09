@@ -22,7 +22,7 @@ namespace igl
     //   V #V by 2 list of 2D vertex positions
     //   E #E by 2 list of vertex ids forming unoriented edges of the boundary of the polygon
     //   H #H by 2 coordinates of points contained inside holes of the polygon
-    //   flags  string of options pass to triangle (see triangle documentation)
+    //   flags  std::string of options pass to triangle (see triangle documentation)
     // Outputs:
     //   V2  #V2 by 2  coordinates of the vertives of the generated triangulation
     //   F2  #F2 by 3  list of indices forming the faces of the generated triangulation
@@ -48,7 +48,7 @@ namespace igl
     //   E #E by 2 list of vertex ids forming unoriented edges of the boundary of the polygon
     //   H #H by 2 coordinates of points contained inside holes of the polygon
 		//   M #V list of markers for input vertices
-    //   flags  string of options pass to triangle (see triangle documentation)
+    //   flags  std::string of options pass to triangle (see triangle documentation)
     // Outputs:
     //   V2  #V2 by 2  coordinates of the vertives of the generated triangulation
     //   F2  #F2 by 3  list of indices forming the faces of the generated triangulation

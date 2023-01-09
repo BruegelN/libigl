@@ -49,7 +49,6 @@ IGL_INLINE igl::SolverStatus igl::active_set(
 #  warning "ACTIVE_SET_CPP_DEBUG"
 #endif
   using namespace Eigen;
-  using namespace std;
   SolverStatus ret = SOLVER_STATUS_ERROR;
   const int n = A.rows();
   assert(n == A.cols() && "A must be square");
@@ -72,7 +71,7 @@ IGL_INLINE igl::SolverStatus igl::active_set(
   if(p_lx.size() == 0)
   {
     lx = Derivedlx::Constant(
-      n,1,-numeric_limits<typename Derivedlx::Scalar>::max());
+      n,1,-std::numeric_limits<typename Derivedlx::Scalar>::max());
   }else
   {
     lx = p_lx;
@@ -80,7 +79,7 @@ IGL_INLINE igl::SolverStatus igl::active_set(
   if(p_ux.size() == 0)
   {
     ux = Derivedux::Constant(
-      n,1,numeric_limits<typename Derivedux::Scalar>::max());
+      n,1,std::numeric_limits<typename Derivedux::Scalar>::max());
   }else
   {
     ux = p_ux;
@@ -111,14 +110,14 @@ IGL_INLINE igl::SolverStatus igl::active_set(
   // Keep track of previous Z for comparison
   DerivedZ old_Z;
   old_Z = DerivedZ::Constant(
-      n,1,numeric_limits<typename DerivedZ::Scalar>::max());
+      n,1,std::numeric_limits<typename DerivedZ::Scalar>::max());
 
   int iter = 0;
   while(true)
   {
 #ifdef ACTIVE_SET_CPP_DEBUG
-    cout<<"Iteration: "<<iter<<":"<<endl;
-    cout<<"  pre"<<endl;
+    std::cout<<"Iteration: "<<iter<<":"<<std::endl;
+    std::cout<<"  pre"<<std::endl;
 #endif
     // FIND BREACHES OF CONSTRAINTS
     int new_as_lx = 0;
@@ -155,12 +154,12 @@ IGL_INLINE igl::SolverStatus igl::active_set(
         }
       }
 #ifdef ACTIVE_SET_CPP_DEBUG
-      cout<<"  new_as_lx: "<<new_as_lx<<endl;
-      cout<<"  new_as_ux: "<<new_as_ux<<endl;
+      std::cout<<"  new_as_lx: "<<new_as_lx<<std::endl;
+      std::cout<<"  new_as_ux: "<<new_as_ux<<std::endl;
 #endif
       const double diff = (Z-old_Z).squaredNorm();
 #ifdef ACTIVE_SET_CPP_DEBUG
-      cout<<"diff: "<<diff<<endl;
+      std::cout<<"diff: "<<diff<<std::endl;
 #endif
       if(diff < params.solution_diff_threshold)
       {
@@ -267,7 +266,7 @@ IGL_INLINE igl::SolverStatus igl::active_set(
     {
       // Everything's fixed?
 #ifdef ACTIVE_SET_CPP_DEBUG
-      cout<<"  everything's fixed."<<endl;
+      std::cout<<"  everything's fixed."<<std::endl;
 #endif
       Z.resize(A.rows(),Y_i.cols());
       slice_into(Y_i,known_i,1,Z);
@@ -276,32 +275,32 @@ IGL_INLINE igl::SolverStatus igl::active_set(
     }else
     {
 #ifdef ACTIVE_SET_CPP_DEBUG
-      cout<<"  min_quad_with_fixed_precompute"<<endl;
+      std::cout<<"  min_quad_with_fixed_precompute"<<std::endl;
 #endif
       if(!min_quad_with_fixed_precompute(A,known_i,Aeq_i,params.Auu_pd,data))
       {
-        cerr<<"Error: min_quad_with_fixed precomputation failed."<<endl;
+        std::cerr<<"Error: min_quad_with_fixed precomputation failed."<<std::endl;
         if(iter > 0 && Aeq_i.rows() > Aeq.rows())
         {
-          cerr<<"  *Are you sure rows of [Aeq;Aieq] are linearly independent?*"<<
-            endl;
+          std::cerr<<"  *Are you sure rows of [Aeq;Aieq] are linearly independent?*"<<
+            std::endl;
         }
         ret = SOLVER_STATUS_ERROR;
         break;
       }
 #ifdef ACTIVE_SET_CPP_DEBUG
-      cout<<"  min_quad_with_fixed_solve"<<endl;
+      std::cout<<"  min_quad_with_fixed_solve"<<std::endl;
 #endif
       if(!min_quad_with_fixed_solve(data,B,Y_i,Beq_i,Z,sol))
       {
-        cerr<<"Error: min_quad_with_fixed solve failed."<<endl;
+        std::cerr<<"Error: min_quad_with_fixed solve failed."<<std::endl;
         ret = SOLVER_STATUS_ERROR;
         break;
       }
       //cout<<matlab_format((Aeq*Z-Beq).eval(),"cr")<<endl;
       //cout<<matlab_format(Z,"Z")<<endl;
 #ifdef ACTIVE_SET_CPP_DEBUG
-      cout<<"  post"<<endl;
+      std::cout<<"  post"<<std::endl;
 #endif
       // Computing Lagrange multipliers needs to be adjusted slightly if A is not symmetric
       assert(data.Auu_sym);

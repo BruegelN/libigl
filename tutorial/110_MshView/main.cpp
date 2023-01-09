@@ -25,7 +25,6 @@ std::vector<Eigen::MatrixXd> TetF;
 // This function is called every time a keyboard button is pressed
 bool key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int modifier)
 {
-  using namespace std;
   using namespace Eigen;
 
   if (key >= '1' && key <= '9')
@@ -35,7 +34,7 @@ bool key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int modifier
     VectorXd v = B.col(2).array() - B.col(2).minCoeff();
     v /= v.col(0).maxCoeff();
 
-    vector<int> s;
+    std::vector<int> s;
 
     for (unsigned i=0; i<v.size();++i)
       if (v(i) < t && v(i)>(t-0.1)) // select a thick slab
@@ -79,7 +78,6 @@ bool key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int modifier
 int main(int argc, char *argv[])
 {
   using namespace Eigen;
-  using namespace std;
 
   igl::readMSH(argc > 1 ? argv[1] : TUTORIAL_SHARED_PATH "/hand.msh", X, Tri, Tet, TriTag, TetTag, XFields, XF, EFields, TriF, TetF);
 

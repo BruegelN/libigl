@@ -40,7 +40,6 @@ IGL_INLINE void igl::histc(
   Eigen::PlainObjectBase<DerivedB > & B)
 {
   const int m = X.size();
-  using namespace std;
   assert( 
     (E.bottomRightCorner(E.size()-1,1) -
       E.topLeftCorner(E.size()-1,1)).maxCoeff() >= 0 && 

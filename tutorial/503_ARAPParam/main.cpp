@@ -41,7 +41,6 @@ bool key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int modifier
 
 int main(int argc, char *argv[])
 {
-  using namespace std;
   // Load a mesh in OFF format
   igl::readOFF(TUTORIAL_SHARED_PATH "/camelhead.off", V, F);
 

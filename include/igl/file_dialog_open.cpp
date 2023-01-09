@@ -44,7 +44,7 @@ IGL_INLINE std::string igl::file_dialog_open()
     }
     if (buffer[FILE_DIALOG_MAX_BUFFER - 1] == '\0')
     {
-      // File name too long, buffer has been filled, so we return empty string instead
+      // File name too long, buffer has been filled, so we return empty std::string instead
       buffer[0] = '\0';
     }
   }
@@ -97,7 +97,7 @@ IGL_INLINE std::string igl::file_dialog_open()
     }
     if (buffer[FILE_DIALOG_MAX_BUFFER - 1] == '\0')
     {
-      // File name too long, buffer has been filled, so we return empty string instead
+      // File name too long, buffer has been filled, so we return empty std::string instead
       buffer[0] = '\0';
     }
   }

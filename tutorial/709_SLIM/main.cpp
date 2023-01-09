@@ -28,7 +28,6 @@
 #include <string>
 #include <vector>
 
-using namespace std;
 using namespace Eigen;
 
 void check_mesh_for_issues(Eigen::MatrixXd& V, Eigen::MatrixXi& F);
@@ -83,7 +82,7 @@ void param_2d_demo_iter(igl::opengl::glfw::Viewer& viewer) {
     timer.start();
     igl::read_triangle_mesh(TUTORIAL_SHARED_PATH "/face.obj", V, F);
     check_mesh_for_issues(V,F);
-    cout << "\tMesh is valid!" << endl;
+    std::cout << "\tMesh is valid!" << std::endl;
 
     Eigen::MatrixXd uv_init;
     Eigen::VectorXi bnd; Eigen::MatrixXd bnd_uv;
@@ -95,7 +94,7 @@ void param_2d_demo_iter(igl::opengl::glfw::Viewer& viewer) {
       igl::harmonic(F,bnd,bnd_uv,1,uv_init); // use uniform laplacian
     }
 
-    cout << "initialized parametrization" << endl;
+    std::cout << "initialized parametrization" << std::endl;
 
     sData.slim_energy = igl::MappingEnergyType::SYMMETRIC_DIRICHLET;
     Eigen::VectorXi b; Eigen::MatrixXd bc;
@@ -114,8 +113,8 @@ void param_2d_demo_iter(igl::opengl::glfw::Viewer& viewer) {
     slim_solve(sData,1); // 1 iter
     viewer.data().set_uv(sData.V_o*uv_scale_param);
   }
-  cout << "time = " << timer.getElapsedTime() << endl;
-  cout << "energy = " << sData.energy << endl;
+  std::cout << "time = " << timer.getElapsedTime() << std::endl;
+  std::cout << "energy = " << sData.energy << std::endl;
 }
 
 void soft_const_demo_iter(igl::opengl::glfw::Viewer& viewer) {
@@ -124,7 +123,7 @@ void soft_const_demo_iter(igl::opengl::glfw::Viewer& viewer) {
     igl::read_triangle_mesh(TUTORIAL_SHARED_PATH "/circle.obj", V, F);
 
     check_mesh_for_issues(V,F);
-    cout << "\tMesh is valid!" << endl;
+    std::cout << "\tMesh is valid!" << std::endl;
     Eigen::MatrixXd V_0 = V.block(0,0,V.rows(),2);
 
     Eigen::VectorXi b; Eigen::MatrixXd bc;
@@ -157,7 +156,7 @@ void deform_3d_demo_iter(igl::opengl::glfw::Viewer& viewer) {
     double soft_const_p = 1e5;
     sData.exp_factor = 5.0;
     slim_precompute(V,F,V_0,sData,igl::MappingEnergyType::EXP_CONFORMAL,b,bc,soft_const_p);
-    //cout << "precomputed" << endl;
+    //cout << "precomputed" << std::endl;
 
     first_iter = false;
     display_3d_mesh(viewer);
@@ -167,8 +166,8 @@ void deform_3d_demo_iter(igl::opengl::glfw::Viewer& viewer) {
     slim_solve(sData,1); // 1 iter
     display_3d_mesh(viewer);
   }
-  cout << "time = " << timer.getElapsedTime() << endl;
-  cout << "energy = " << sData.energy << endl;
+  std::cout << "time = " << timer.getElapsedTime() << std::endl;
+  std::cout << "energy = " << sData.energy << std::endl;
 }
 
 void display_3d_mesh(igl::opengl::glfw::Viewer& viewer) {
@@ -176,7 +175,7 @@ void display_3d_mesh(igl::opengl::glfw::Viewer& viewer) {
   Eigen::MatrixXd Barycenters;
 
   igl::barycenter(sData.V,sData.F,Barycenters);
-  //cout << "Barycenters.rows() = " << Barycenters.rows() << endl;
+  //cout << "Barycenters.rows() = " << Barycenters.rows() << std::endl;
   //double t = double((key - '1')+1) / 9.0;
   double view_depth = 10.;
   double t = view_depth/9.;
@@ -184,7 +183,7 @@ void display_3d_mesh(igl::opengl::glfw::Viewer& viewer) {
   VectorXd v = Barycenters.col(2).array() - Barycenters.col(2).minCoeff();
   v /= v.col(0).maxCoeff();
 
-  vector<int> s;
+  std::vector<int> s;
 
   for (unsigned i=0; i<v.size();++i)
     if (v(i) < t)
@@ -211,11 +210,11 @@ void display_3d_mesh(igl::opengl::glfw::Viewer& viewer) {
 
 int main(int argc, char *argv[]) {
 
-  cerr << "Press space for running an iteration." << std::endl;
-  cerr << "Syntax: " << argv[0] << " demo_number (1 to 3)" << std::endl;
-  cerr << "1. 2D unconstrained parametrization" << std::endl;
-  cerr << "2. 2D deformation with positional constraints" << std::endl;
-  cerr << "3. 3D mesh deformation with positional constraints" << std::endl;
+  std::cerr << "Press space for running an iteration." << std::endl;
+  std::cerr << "Syntax: " << argv[0] << " demo_number (1 to 3)" << std::endl;
+  std::cerr << "1. 2D unconstrained parametrization" << std::endl;
+  std::cerr << "2. 2D deformation with positional constraints" << std::endl;
+  std::cerr << "3. 3D mesh deformation with positional constraints" << std::endl;
 
   demo_type = PARAM_2D;
 
@@ -232,7 +231,7 @@ int main(int argc, char *argv[]) {
          break;
        }
        default: {
-         cerr << "Wrong demo number - Please choose one between 1-3" << std:: endl;
+         std::cerr << "Wrong demo number - Please choose one between 1-3" << std::endl;
          exit(1);
        }
      }
@@ -267,26 +266,26 @@ void check_mesh_for_issues(Eigen::MatrixXd& V, Eigen::MatrixXi& F) {
 
   int connected_components = Ci.rows();
   if (connected_components!=1) {
-    cout << "Error! Input has multiple connected components" << endl; exit(1);
+    std::cout << "Error! Input has multiple connected components" << std::endl; exit(1);
   }
   int euler_char = igl::euler_characteristic(V, F);
   if (euler_char!=1) 
   {
-    cout << 
+    std::cout <<
       "Error! Input does not have a disk topology, it's euler char is " << 
-      euler_char << endl; 
+      euler_char << std::endl;
     exit(1);
   }
   bool is_edge_manifold = igl::is_edge_manifold(F);
   if (!is_edge_manifold) {
-    cout << "Error! Input is not an edge manifold" << endl; exit(1);
+    std::cout << "Error! Input is not an edge manifold" << std::endl; exit(1);
   }
 
   Eigen::VectorXd areas; igl::doublearea(V,F,areas);
   const double eps = 1e-14;
   for (int i = 0; i < areas.rows(); i++) {
     if (areas(i) < eps) {
-      cout << "Error! Input has zero area faces" << endl; exit(1);
+      std::cout << "Error! Input has zero area faces" << std::endl; exit(1);
     }
   }
 }

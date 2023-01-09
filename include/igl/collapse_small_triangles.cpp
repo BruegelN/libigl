@@ -24,7 +24,6 @@ void igl::collapse_small_triangles(
   Eigen::MatrixXi & FF)
 {
   using namespace Eigen;
-  using namespace std;
 
   // Compute bounding box diagonal length
   double bbd = bounding_box_diagonal(V);
@@ -121,8 +120,8 @@ void igl::collapse_small_triangles(
     // Use conservative resize
     FF.conservativeResize(ff,FF.cols());
   }
-  //cout<<"num_edge_collapses: "<<num_edge_collapses<<endl;
-  //cout<<"num_face_collapses: "<<num_face_collapses<<endl;
+  //cout<<"num_edge_collapses: "<<num_edge_collapses<<std::endl;
+  //cout<<"num_face_collapses: "<<num_face_collapses<<std::endl;
   if(num_edge_collapses == 0)
   {
     // There must have been a "collapsed edge" in the input

@@ -58,14 +58,13 @@ bool key_down(igl::opengl::glfw::Viewer &viewer, unsigned char key, int mods)
 int main(int argc, char *argv[])
 {
   using namespace Eigen;
-  using namespace std;
   igl::readOBJ(TUTORIAL_SHARED_PATH "/decimated-max.obj",V,F);
   U=V;
   // S(i) = j: j<0 (vertex i not in handle), j >= 0 (vertex i in handle j)
   VectorXi S;
   igl::readDMAT(TUTORIAL_SHARED_PATH "/decimated-max-selection.dmat",S);
   igl::colon<int>(0,V.rows()-1,b);
-  b.conservativeResize(stable_partition( b.data(), b.data()+b.size(),
+  b.conservativeResize(std::stable_partition( b.data(), b.data()+b.size(),
    [&S](int i)->bool{return S(i)>=0;})-b.data());
 
   // Boundary conditions directly on deformed positions
@@ -118,8 +117,8 @@ int main(int argc, char *argv[])
   viewer.callback_key_down = &key_down;
   //viewer.core().is_animating = true;
   viewer.core().animation_max_fps = 30.;
-  cout<<
-    "Press [space] to toggle deformation."<<endl<<
-    "Press 'd' to toggle between biharmonic surface or displacements."<<endl;
+  std::cout<<
+    "Press [space] to toggle deformation."<<std::endl<<
+    "Press 'd' to toggle between biharmonic surface or displacements."<<std::endl;
   viewer.launch();
 }

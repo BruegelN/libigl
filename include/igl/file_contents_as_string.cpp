@@ -40,6 +40,6 @@ IGL_INLINE std::string igl::file_contents_as_string(
   bool ret = 
 #endif
     file_contents_as_string(file_name,content);
-  assert(ret && "file_contents_as_string failed to read string from file");
+  assert(ret && "file_contents_as_string failed to read std::string from file");
   return content;
 }

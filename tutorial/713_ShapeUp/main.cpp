@@ -46,7 +46,6 @@ void quadAngleRegularity(const Eigen::MatrixXd& V, const Eigen::MatrixXi& Q, Eig
 
 bool key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int modifier)
 {
-  using namespace std;
   using namespace Eigen;
 
   // Plot the original quad mesh
@@ -102,7 +101,6 @@ bool key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int modifier
 int main(int argc, char *argv[])
 {
   using namespace Eigen;
-  using namespace std;
 
   // Load a quad mesh
   igl::readOFF(TUTORIAL_SHARED_PATH "/halftunnel.off", VQC, FQC);

@@ -30,18 +30,17 @@ igl::ARAPData arap_data;
 int main(int argc, char * argv[])
 {
   using namespace Eigen;
-  using namespace std;
   using namespace igl;
   
   // read the mesh, if the code is prepared outside of tutorial, the TUTORIAL_SHARED_PATH
   // should be the data folder
   if(!readMESH(TUTORIAL_SHARED_PATH "/octopus-low.mesh",low.V,low.T,low.F))
   {
-    cout<<"failed to load mesh"<<endl;
+    std::cout<<"failed to load mesh"<<std::endl;
   }
   if(!readMESH(TUTORIAL_SHARED_PATH "/octopus-high.mesh",high.V,high.T,high.F))
   {
-    cout<<"failed to load mesh"<<endl;
+    std::cout<<"failed to load mesh"<<std::endl;
   }
 
   // Precomputation
@@ -52,7 +51,7 @@ int main(int argc, char * argv[])
       Eigen::VectorXi J = Eigen::VectorXi::LinSpaced(high.V.rows(),0,high.V.rows()-1);
       Eigen::VectorXd sqrD;
       Eigen::MatrixXd _2;
-      cout<<"Finding closest points..."<<endl;
+      std::cout<<"Finding closest points..."<<std::endl;
       // using J which is N by 1 instead of a matrix that represents faces of N by 3
       // so that we will find the closest vertices istead of closest point on the face
       // so far the two meshes are not seperated. So what we are really doing here
@@ -75,8 +74,8 @@ int main(int argc, char * argv[])
     std::vector<std::vector<int> > S;
     // S will hav size of low.V.rows() and each list inside will have 1 element
     igl::matrix_to_list(b,S);
-    cout<<"Computing weights for "<<b.size()<<
-      " handles at "<<high.V.rows()<<" vertices..."<<endl;
+    std::cout<<"Computing weights for "<<b.size()<<
+      " handles at "<<high.V.rows()<<" vertices..."<<std::endl;
     // Technically k should equal 3 for smooth interpolation in 3d, but 2 is
     // faster and looks OK
     const int k = 2;
@@ -86,12 +85,12 @@ int main(int argc, char * argv[])
     // but since low and high resembles the same thing, using points in low reesolution
     // will give you similar performance
     igl::biharmonic_coordinates(high.V,high.T,S,k,W);
-    cout<<"Reindexing..."<<endl;
+    std::cout<<"Reindexing..."<<std::endl;
     // Throw away interior tet-vertices, keep weights and indices of boundary
     VectorXi I,J;
     igl::remove_unreferenced(high.V.rows(),high.F,I,J);
-    for_each(high.F.data(),high.F.data()+high.F.size(),[&I](int & a){a=I(a);});
-    for_each(b.data(),b.data()+b.size(),[&I](int & a){a=I(a);});
+    std::for_each(high.F.data(),high.F.data()+high.F.size(),[&I](int & a){a=I(a);});
+    std::for_each(b.data(),b.data()+b.size(),[&I](int & a){a=I(a);});
     igl::slice(MatrixXd(high.V),J,1,high.V);
     igl::slice(MatrixXd(W),J,1,W);
   }
@@ -110,7 +109,7 @@ int main(int argc, char * argv[])
   arap_data.ym = 0.001;
   if(!arap_precomputation(low.V,low.T,3,VectorXi(),arap_data))
   {
-    cerr<<"arap_precomputation failed."<<endl;
+    std::cerr<<"arap_precomputation failed."<<std::endl;
     return EXIT_FAILURE;
   }
   // Constant gravitational force
@@ -182,7 +181,7 @@ int main(int argc, char * argv[])
   viewer.core().is_animating = true;
   viewer.core().animation_max_fps = 30.;
   viewer.data().set_face_based(true);
-  cout<<R"(
+  std::cout<<R"(
 [space] to toggle animation
 'r'     to reset positions 
       )";

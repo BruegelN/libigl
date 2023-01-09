@@ -23,9 +23,9 @@ namespace igl
   //    };
   //    tictoc();
   //    ... // part 1
-  //    cout<<"part 1: "<<tictoc()<<endl;
+  //    std::cout<<"part 1: "<<tictoc()<<std::endl;
   //    ... // part 2
-  //    cout<<"part 2: "<<tictoc()<<endl;
+  //    std::cout<<"part 2: "<<tictoc()<<std::endl;
   //    ... // etc
   IGL_INLINE double get_seconds();
 

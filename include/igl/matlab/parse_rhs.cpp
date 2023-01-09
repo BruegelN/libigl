@@ -35,7 +35,6 @@ IGL_INLINE void igl::matlab::parse_rhs(
   Eigen::SparseMatrix<MT> & M)
 {
   using namespace Eigen;
-  using namespace std;
   const mxArray * mx_data = prhs[0];
   // Handle boring case where matrix is actually an empty dense matrix
   if(mxGetNumberOfElements(mx_data) == 0)
@@ -45,7 +44,7 @@ IGL_INLINE void igl::matlab::parse_rhs(
   }
   assert(mxIsSparse(mx_data));
   assert(mxGetNumberOfDimensions(mx_data) == 2);
-  //cout<<name<<": "<<mxGetM(mx_data)<<" "<<mxGetN(mx_data)<<endl;
+  //cout<<name<<": "<<mxGetM(mx_data)<<" "<<mxGetN(mx_data)<<std::endl;
   const int m = mxGetM(mx_data);
   const int n = mxGetN(mx_data);
   // TODO: It should be possible to directly load the data into the sparse
@@ -54,7 +53,7 @@ IGL_INLINE void igl::matlab::parse_rhs(
   double * pr = mxGetPr(mx_data);
   mwIndex * ir = mxGetIr(mx_data);
   mwIndex * jc = mxGetJc(mx_data);
-  vector<Triplet<MT> > MIJV;
+  std::vector<Triplet<MT> > MIJV;
   MIJV.reserve(mxGetNumberOfElements(mx_data));
   // Iterate over outside
   int k = 0;
@@ -63,7 +62,7 @@ IGL_INLINE void igl::matlab::parse_rhs(
     // Iterate over inside
     while(k<(int)jc[j+1])
     {
-      //cout<<ir[k]<<" "<<j<<" "<<pr[k]<<endl;
+      //cout<<ir[k]<<" "<<j<<" "<<pr[k]<<std::endl;
       assert((int)ir[k]<m);
       assert((int)j<n);
       MIJV.push_back(Triplet<MT >(ir[k],j,pr[k]));

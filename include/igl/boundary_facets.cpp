@@ -128,7 +128,6 @@ IGL_INLINE void igl::boundary_facets(
   std::vector<std::vector<IntegerF> > & F)
 {
   // Kept for legacy reasons. Could probably just delete.
-  using namespace std;
 
   if(T.size() == 0)
   {
@@ -138,9 +137,9 @@ IGL_INLINE void igl::boundary_facets(
 
   int simplex_size = T[0].size();
   // Get a list of all faces
-  vector<vector<IntegerF> > allF(
+  std::vector<std::vector<IntegerF> > allF(
     T.size()*simplex_size,
-    vector<IntegerF>(simplex_size-1));
+    std::vector<IntegerF>(simplex_size-1));
 
   // Gather faces, loop over tets
   for(int i = 0; i< (int)T.size();i++)
@@ -178,7 +177,7 @@ IGL_INLINE void igl::boundary_facets(
   }
 
   // Counts
-  vector<int> C;
+  std::vector<int> C;
   face_occurrences(allF,C);
 
   // Q: Why not just count the number of ones?

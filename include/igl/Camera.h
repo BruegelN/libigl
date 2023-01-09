@@ -161,7 +161,6 @@ inline igl::Camera::Camera():
 inline Eigen::Matrix4d igl::Camera::projection() const
 {
   Eigen::Matrix4d P;
-  using namespace std;
   const double far = m_at_dist + m_far;
   const double near = m_near;
   // http://stackoverflow.com/a/3738696/148668
@@ -265,7 +264,6 @@ inline void igl::Camera::push_away(const double s)
 
 inline void igl::Camera::dolly_zoom(const double da)
 {
-  using namespace std;
   using namespace Eigen;
 #ifndef NDEBUG
   Vector3d old_at = at();
@@ -281,7 +279,7 @@ inline void igl::Camera::dolly_zoom(const double da)
   if(!m_orthographic)
   {
     m_angle += da;
-    m_angle = min(89.,max(IGL_CAMERA_MIN_ANGLE,m_angle));
+    m_angle = std::min(89., std::max(IGL_CAMERA_MIN_ANGLE,m_angle));
     // change in distance
     const double s = 
       (2.*tan(old_angle/2./180.*igl::PI)) /
@@ -328,7 +326,6 @@ inline void igl::Camera::look_at(
   const Eigen::Vector3d & up)
 {
   using namespace Eigen;
-  using namespace std;
   // http://www.opengl.org/sdk/docs/man2/xhtml/gluLookAt.xml
   // Normalize vector from at to eye
   Vector3d F = eye-at;
@@ -342,13 +339,13 @@ inline void igl::Camera::look_at(
   b.setFromTwoVectors(a*Vector3d(0,1,0),proj_up);
   m_rotation_conj = (b*a).conjugate();
   m_translation = m_rotation_conj * eye;
-  //cout<<"m_at_dist: "<<m_at_dist<<endl;
-  //cout<<"proj_up: "<<proj_up.transpose()<<endl;
-  //cout<<"F: "<<F.transpose()<<endl;
-  //cout<<"eye(): "<<this->eye().transpose()<<endl;
-  //cout<<"at(): "<<this->at().transpose()<<endl;
-  //cout<<"eye()-at(): "<<(this->eye()-this->at()).normalized().transpose()<<endl;
-  //cout<<"eye-this->eye(): "<<(eye-this->eye()).squaredNorm()<<endl;
+  //cout<<"m_at_dist: "<<m_at_dist<<std::endl;
+  //cout<<"proj_up: "<<proj_up.transpose()<<std::endl;
+  //cout<<"F: "<<F.transpose()<<std::endl;
+  //cout<<"eye(): "<<this->eye().transpose()<<std::endl;
+  //cout<<"at(): "<<this->at().transpose()<<std::endl;
+  //cout<<"eye()-at(): "<<(this->eye()-this->at()).normalized().transpose()<<std::endl;
+  //cout<<"eye-this->eye(): "<<(eye-this->eye()).squaredNorm()<<std::endl;
   assert(           (eye-this->eye()).squaredNorm() < DOUBLE_EPS);
   //assert((F-(this->eye()-this->at()).normalized()).squaredNorm() < 
   //  DOUBLE_EPS);

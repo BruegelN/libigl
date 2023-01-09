@@ -13,8 +13,8 @@
 
 namespace igl
 {
-  // Returns a string with a path to a new/existing file
-  // The string is returned empty if no file is selected
+  // Returns a std::string with a path to a new/existing file
+  // The std::string is returned empty if no file is selected
   // (on Linux machines, it assumes that Zenity is installed)
   //
   // Usage:

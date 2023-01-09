@@ -22,7 +22,6 @@ IGL_INLINE bool igl::lscm(
   Eigen::SparseMatrix<double> & Q)
 {
   using namespace Eigen;
-  using namespace std;
   
   // Assemble the area matrix (note that A is #Vx2 by #Vx2)
   SparseMatrix<double> A;

@@ -104,7 +104,6 @@ IGL_INLINE void igl::opengl::ViewerCore::draw(
   ViewerData& data,
   bool update_matrices)
 {
-  using namespace std;
   using namespace Eigen;
 
   if (depth_test)
@@ -402,7 +401,6 @@ IGL_INLINE void igl::opengl::ViewerCore::set_rotation_type(
   const igl::opengl::ViewerCore::RotationType & value)
 {
   using namespace Eigen;
-  using namespace std;
   const RotationType old_rotation_type = rotation_type;
   rotation_type = value;
   if(rotation_type == ROTATION_TYPE_TWO_AXIS_VALUATOR_FIXED_UP &&

@@ -189,7 +189,6 @@ inline void igl::matlab::MatlabWorkspace::clear()
 
 inline bool igl::matlab::MatlabWorkspace::write(const std::string & path) const
 {
-  using namespace std;
   MATFile * mat_file = matOpen(path.c_str(), "w");
   if(mat_file == NULL)
   {
@@ -204,8 +203,8 @@ inline bool igl::matlab::MatlabWorkspace::write(const std::string & path) const
     int status = matPutVariable(mat_file,names[i].c_str(), data[i]);
     if(status != 0) 
     {
-      cerr<<"^MatlabWorkspace::save Error: matPutVariable ("<<names[i]<<
-        ") failed"<<endl;
+      std::cerr<<"^MatlabWorkspace::save Error: matPutVariable ("<<names[i]<<
+        ") failed"<<std::endl;
       return false;
     } 
   }
@@ -219,21 +218,20 @@ inline bool igl::matlab::MatlabWorkspace::write(const std::string & path) const
 
 inline bool igl::matlab::MatlabWorkspace::read(const std::string & path)
 {
-  using namespace std;
 
   MATFile * mat_file;
 
   mat_file = matOpen(path.c_str(), "r");
   if (mat_file == NULL) 
   {
-    cerr<<"Error: failed to open "<<path<<endl;
+    std::cerr<<"Error: failed to open "<<path<<std::endl;
     return false;
   }
 
   int ndir;
   const char ** dir = (const char **)matGetDir(mat_file, &ndir);
   if (dir == NULL) {
-    cerr<<"Error reading directory of file "<< path<<endl;
+    std::cerr<<"Error reading directory of file "<< path<<std::endl;
     return false;
   }
   mxFree(dir);
@@ -241,13 +239,13 @@ inline bool igl::matlab::MatlabWorkspace::read(const std::string & path)
   // Must close and reopen
   if(matClose(mat_file) != 0)
   {
-    cerr<<"Error: failed to close file "<<path<<endl;
+    std::cerr<<"Error: failed to close file "<<path<<std::endl;
     return false;
   }
   mat_file = matOpen(path.c_str(), "r");
   if (mat_file == NULL) 
   {
-    cerr<<"Error: failed to open "<<path<<endl;
+    std::cerr<<"Error: failed to open "<<path<<std::endl;
     return false;
   }
   
@@ -259,7 +257,7 @@ inline bool igl::matlab::MatlabWorkspace::read(const std::string & path)
     mxArray * mx_data = matGetNextVariable(mat_file, &name);
     if (mx_data == NULL) 
     {
-      cerr<<"Error: matGetNextVariable failed in "<<path<<endl;
+      std::cerr<<"Error: matGetNextVariable failed in "<<path<<std::endl;
       return false;
     } 
     const int dims = mxGetNumberOfDimensions(mx_data);
@@ -278,7 +276,7 @@ inline bool igl::matlab::MatlabWorkspace::read(const std::string & path)
 
   if(matClose(mat_file) != 0)
   {
-    cerr<<"Error: failed to close file "<<path<<endl;
+    std::cerr<<"Error: failed to close file "<<path<<std::endl;
     return false;
   }
 
@@ -291,7 +289,6 @@ inline igl::matlab::MatlabWorkspace& igl::matlab::MatlabWorkspace::save(
   const Eigen::PlainObjectBase<DerivedM>& M,
   const std::string & name)
 {
-  using namespace std;
   const int m = M.rows();
   const int n = M.cols();
   mxArray * mx_data = mxCreateDoubleMatrix(m,n,mxREAL);
@@ -311,7 +308,6 @@ inline igl::matlab::MatlabWorkspace& igl::matlab::MatlabWorkspace::save(
   const Eigen::SparseMatrix<MT>& M,
   const std::string & name)
 {
-  using namespace std;
   const int m = M.rows();
   const int n = M.cols();
   // THIS WILL NOT WORK FOR ROW-MAJOR
@@ -421,7 +417,6 @@ inline bool igl::matlab::MatlabWorkspace::find(
   const std::string & name,
   Eigen::PlainObjectBase<DerivedM>& M)
 {
-  using namespace std;
   const int i = std::find(names.begin(), names.end(), name)-names.begin();
   if(i>=(int)names.size())
   {
@@ -431,7 +426,7 @@ inline bool igl::matlab::MatlabWorkspace::find(
   mxArray * mx_data = data[i];
   assert(!mxIsSparse(mx_data));
   assert(mxGetNumberOfDimensions(mx_data) == 2);
-  //cout<<name<<": "<<mxGetM(mx_data)<<" "<<mxGetN(mx_data)<<endl;
+  //cout<<name<<": "<<mxGetM(mx_data)<<" "<<mxGetN(mx_data)<<std::endl;
   const int m = mxGetM(mx_data);
   const int n = mxGetN(mx_data);
   // Handle vectors: in the sense that anything found becomes a column vector,
@@ -456,7 +451,6 @@ inline bool igl::matlab::MatlabWorkspace::find(
   const std::string & name,
   Eigen::SparseMatrix<MT>& M)
 {
-  using namespace std;
   using namespace Eigen;
   const int i = std::find(names.begin(), names.end(), name)-names.begin();
   if(i>=(int)names.size())
@@ -473,7 +467,7 @@ inline bool igl::matlab::MatlabWorkspace::find(
   }
   assert(mxIsSparse(mx_data));
   assert(mxGetNumberOfDimensions(mx_data) == 2);
-  //cout<<name<<": "<<mxGetM(mx_data)<<" "<<mxGetN(mx_data)<<endl;
+  //cout<<name<<": "<<mxGetM(mx_data)<<" "<<mxGetN(mx_data)<<std::endl;
   const int m = mxGetM(mx_data);
   const int n = mxGetN(mx_data);
   // TODO: It should be possible to directly load the data into the sparse
@@ -482,7 +476,7 @@ inline bool igl::matlab::MatlabWorkspace::find(
   double * pr = mxGetPr(mx_data);
   mwIndex * ir = mxGetIr(mx_data);
   mwIndex * jc = mxGetJc(mx_data);
-  vector<Triplet<MT> > MIJV;
+  std::vector<Triplet<MT> > MIJV;
   const int nnz = mxGetNzmax(mx_data);
   MIJV.reserve(nnz);
   // Iterate over outside
@@ -492,7 +486,7 @@ inline bool igl::matlab::MatlabWorkspace::find(
     // Iterate over inside
     while(k<(int)jc[j+1])
     {
-      //cout<<ir[k]<<" "<<j<<" "<<pr[k]<<endl;
+      //cout<<ir[k]<<" "<<j<<" "<<pr[k]<<std::endl;
       assert((int)ir[k]<m);
       assert((int)j<n);
       MIJV.push_back(Triplet<MT >(ir[k],j,pr[k]));
@@ -509,7 +503,6 @@ inline bool igl::matlab::MatlabWorkspace::find(
   const std::string & name,
   int & v)
 {
-  using namespace std;
   const int i = std::find(names.begin(), names.end(), name)-names.begin();
   if(i>=(int)names.size())
   {
@@ -519,7 +512,7 @@ inline bool igl::matlab::MatlabWorkspace::find(
   mxArray * mx_data = data[i];
   assert(!mxIsSparse(mx_data));
   assert(mxGetNumberOfDimensions(mx_data) == 2);
-  //cout<<name<<": "<<mxGetM(mx_data)<<" "<<mxGetN(mx_data)<<endl;
+  //cout<<name<<": "<<mxGetM(mx_data)<<" "<<mxGetN(mx_data)<<std::endl;
   assert(mxGetNumberOfElements(mx_data) == 1);
   copy(
     mxGetPr(mx_data),
@@ -532,7 +525,6 @@ inline bool igl::matlab::MatlabWorkspace::find(
   const std::string & name,
   double & d)
 {
-  using namespace std;
   const int i = std::find(names.begin(), names.end(), name)-names.begin();
   if(i>=(int)names.size())
   {
@@ -542,7 +534,7 @@ inline bool igl::matlab::MatlabWorkspace::find(
   mxArray * mx_data = data[i];
   assert(!mxIsSparse(mx_data));
   assert(mxGetNumberOfDimensions(mx_data) == 2);
-  //cout<<name<<": "<<mxGetM(mx_data)<<" "<<mxGetN(mx_data)<<endl;
+  //cout<<name<<": "<<mxGetM(mx_data)<<" "<<mxGetN(mx_data)<<std::endl;
   assert(mxGetNumberOfElements(mx_data) == 1);
   copy(
     mxGetPr(mx_data),
@@ -568,10 +560,9 @@ inline bool igl::matlab::MatlabWorkspace::find_index(
 //template <typename Data>
 //bool igl::matlab::MatlabWorkspace::save(const Data & M, const std::string & name)
 //{
-//  using namespace std;
-//  // If I don't know the type then I can't save it
-//  cerr<<"^MatlabWorkspace::save Error: Unknown data type. "<<
-//    name<<" not saved."<<endl;
+//  //  // If I don't know the type then I can't save it
+//  std::cerr<<"^MatlabWorkspace::save Error: Unknown data type. "<<
+//    name<<" not saved."<<std::endl;
 //  return false;
 //}
 

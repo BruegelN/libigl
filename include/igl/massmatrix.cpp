@@ -23,7 +23,6 @@ IGL_INLINE void igl::massmatrix(
   Eigen::SparseMatrix<Scalar>& M)
 {
   using namespace Eigen;
-  using namespace std;
 
   const int n = V.rows();
   const int m = F.rows();

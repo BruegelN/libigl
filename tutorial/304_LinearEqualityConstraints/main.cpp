@@ -12,7 +12,6 @@
 int main(int argc, char *argv[])
 {
   using namespace Eigen;
-  using namespace std;
   MatrixXd V;
   MatrixXi F;
   igl::readOFF(TUTORIAL_SHARED_PATH "/cheburashka.off",V,F);
@@ -83,7 +82,7 @@ int main(int argc, char *argv[])
         return false;
       }
     };
-  cout<<
-    "Press [space] to toggle between unconstrained and constrained."<<endl;
+  std::cout<<
+    "Press [space] to toggle between unconstrained and constrained."<<std::endl;
   viewer.launch();
 }

@@ -15,7 +15,6 @@
 int main(int argc, char *argv[])
 {
   using namespace Eigen;
-  using namespace std;
   MatrixXd V;
   MatrixXi F;
   igl::readOFF(TUTORIAL_SHARED_PATH "/camelhead.off",V,F);

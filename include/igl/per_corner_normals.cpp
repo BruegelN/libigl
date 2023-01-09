@@ -191,7 +191,7 @@ IGL_INLINE void igl::per_corner_normals(
   Eigen::Matrix<Scalar,Eigen::Dynamic,1> AA;
   doublearea(VV,FF,AA);
   // VF[i](j) = p means p is the jth face incident on vertex i
-  // to-do micro-optimization to avoid vector<vector>
+  // to-do micro-optimization to avoid std::vector<vector>
   std::vector<std::vector<Eigen::Index>> VF(V.rows());
   for(Eigen::Index p = 0;p<m;p++)
   {

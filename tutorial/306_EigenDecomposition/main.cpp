@@ -16,13 +16,12 @@ bool twod = 0;
 int main(int argc, char * argv[])
 {
   using namespace Eigen;
-  using namespace std;
   using namespace igl;
   VectorXd D;
   if(!read_triangle_mesh(
      argc>1?argv[1]: TUTORIAL_SHARED_PATH "/beetle.off",V,F))
   {
-    cout<<"failed to load mesh"<<endl;
+    std::cout<<"failed to load mesh"<<std::endl;
   }
   twod = V.col(2).minCoeff()==V.col(2).maxCoeff();
   bbd = (V.colwise().maxCoeff()-V.colwise().minCoeff()).norm();
@@ -33,7 +32,7 @@ int main(int argc, char * argv[])
   const size_t k = 5;
   if(!eigs(L,M,k+1,EIGS_TYPE_SM,U,D))
   {
-    cout<<"failed."<<endl;
+    std::cout<<"failed."<<std::endl;
   }
   // Normalize
   U = ((U.array()-U.minCoeff())/(U.maxCoeff()-U.minCoeff())).eval();

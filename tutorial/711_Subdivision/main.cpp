@@ -9,7 +9,6 @@
 
 int main(int argc, char * argv[])
 {
-  using namespace std;
   using namespace igl;
   Eigen::MatrixXi OF,F;
   Eigen::MatrixXd OV,V;
@@ -18,7 +17,7 @@ int main(int argc, char * argv[])
       TUTORIAL_SHARED_PATH "/decimated-knight.off",OV,OF);
   V = OV;
   F = OF;
-  cout<<R"(Usage:
+  std::cout<<R"(Usage:
 1  Restore Original mesh
 2  Apply In-plane upsampled mesh
 3  Apply Loop subdivided mesh

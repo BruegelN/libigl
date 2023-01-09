@@ -9,9 +9,8 @@ int main(int argc, char * argv[])
 {
   using namespace Eigen;
   using namespace igl::copyleft::cgal;
-  using namespace std;
   using namespace igl;
-  cout<<R"(
+  std::cout<<R"(
 [,]  Toggle between boolean sub-tree operations
 )";
 

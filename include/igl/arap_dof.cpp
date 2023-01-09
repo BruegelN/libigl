@@ -79,9 +79,9 @@ IGL_INLINE bool igl::arap_dof_precomputation(
   // Discrete laplacian (should be minus matlab version)
   SparseMatrix<double> Lapl = -2.0*Lcot;
 #ifdef EXTREME_VERBOSE
-  cout<<"LaplIJV=["<<endl;print_ijv(Lapl,1);cout<<endl<<"];"<<
-    endl<<"Lapl=sparse(LaplIJV(:,1),LaplIJV(:,2),LaplIJV(:,3),"<<
-    Lapl.rows()<<","<<Lapl.cols()<<");"<<endl;
+  std::cout<<"LaplIJV=["<<std::endl;print_ijv(Lapl,1);cout<<std::endl<<"];"<<
+    std::endl<<"Lapl=sparse(LaplIJV(:,1),LaplIJV(:,2),LaplIJV(:,3),"<<
+    Lapl.rows()<<","<<Lapl.cols()<<");"<<std::endl;
 #endif
 
   // Get group sum scatter matrix, when applied sums all entries of the same
@@ -113,9 +113,9 @@ IGL_INLINE bool igl::arap_dof_precomputation(
   }
 
 #ifdef EXTREME_VERBOSE
-  cout<<"G_sumIJV=["<<endl;print_ijv(G_sum,1);cout<<endl<<"];"<<
-    endl<<"G_sum=sparse(G_sumIJV(:,1),G_sumIJV(:,2),G_sumIJV(:,3),"<<
-    G_sum.rows()<<","<<G_sum.cols()<<");"<<endl;
+  std::cout<<"G_sumIJV=["<<std::endl;print_ijv(G_sum,1);cout<<std::endl<<"];"<<
+    std::endl<<"G_sum=sparse(G_sumIJV(:,1),G_sumIJV(:,2),G_sumIJV(:,3),"<<
+    G_sum.rows()<<","<<G_sum.cols()<<");"<<std::endl;
 #endif
 
   // Get covariance scatter matrix, when applied collects the covariance matrices
@@ -124,9 +124,9 @@ IGL_INLINE bool igl::arap_dof_precomputation(
   //printf("covariance_scatter_matrix()\n");
   covariance_scatter_matrix(V,F,data.energy,CSM);
 #ifdef EXTREME_VERBOSE
-  cout<<"CSMIJV=["<<endl;print_ijv(CSM,1);cout<<endl<<"];"<<
-    endl<<"CSM=sparse(CSMIJV(:,1),CSMIJV(:,2),CSMIJV(:,3),"<<
-    CSM.rows()<<","<<CSM.cols()<<");"<<endl;
+  std::cout<<"CSMIJV=["<<std::endl;print_ijv(CSM,1);cout<<std::endl<<"];"<<
+    std::endl<<"CSM=sparse(CSMIJV(:,1),CSMIJV(:,2),CSMIJV(:,3),"<<
+    CSM.rows()<<","<<CSM.cols()<<");"<<std::endl;
 #endif
   
 
@@ -151,16 +151,16 @@ IGL_INLINE bool igl::arap_dof_precomputation(
   repdiag(G_sum,data.dim,G_sum_dim);
   CSM = (G_sum_dim * CSM).eval();
 #ifdef EXTREME_VERBOSE
-  cout<<"CSMIJV=["<<endl;print_ijv(CSM,1);cout<<endl<<"];"<<
-    endl<<"CSM=sparse(CSMIJV(:,1),CSMIJV(:,2),CSMIJV(:,3),"<<
-    CSM.rows()<<","<<CSM.cols()<<");"<<endl;
+  std::cout<<"CSMIJV=["<<std::endl;print_ijv(CSM,1);cout<<std::endl<<"];"<<
+    std::endl<<"CSM=sparse(CSMIJV(:,1),CSMIJV(:,2),CSMIJV(:,3),"<<
+    CSM.rows()<<","<<CSM.cols()<<");"<<std::endl;
 #endif
 
   //printf("CSM_M()\n");
   // Precompute CSM times M for each dimension
   data.CSM_M.resize(data.dim);
 #ifdef EXTREME_VERBOSE
-  cout<<"data.CSM_M = cell("<<data.dim<<",1);"<<endl;
+  std::cout<<"data.CSM_M = cell("<<data.dim<<",1);"<<std::endl;
 #endif
   // span of integers from 0 to n-1
   Eigen::Matrix<int,Eigen::Dynamic,1> span_n(n);
@@ -217,7 +217,7 @@ IGL_INLINE bool igl::arap_dof_precomputation(
       }
     }
 #ifdef EXTREME_VERBOSE
-    cout<<"CSM_Mi=["<<endl<<data.CSM_M[i]<<endl<<"];"<<endl;
+    std::cout<<"CSM_Mi=["<<std::endl<<data.CSM_M[i]<<std::endl<<"];"<<std::endl;
 #endif
   }
 
@@ -226,9 +226,9 @@ IGL_INLINE bool igl::arap_dof_precomputation(
   SparseMatrix<double> K;
   arap_rhs(V,F,V.cols(),data.energy,K);
 //#ifdef EXTREME_VERBOSE
-//  cout<<"KIJV=["<<endl;print_ijv(K,1);cout<<endl<<"];"<<
-//    endl<<"K=sparse(KIJV(:,1),KIJV(:,2),KIJV(:,3),"<<
-//    K.rows()<<","<<K.cols()<<");"<<endl;
+//  std::cout<<"KIJV=["<<std::endl;print_ijv(K,1);cout<<std::endl<<"];"<<
+//    std::endl<<"K=sparse(KIJV(:,1),KIJV(:,2),KIJV(:,3),"<<
+//    K.rows()<<","<<K.cols()<<");"<<std::endl;
 //#endif
   // Precompute left muliplication by M and right multiplication by G_sum
   SparseMatrix<double> G_sumT = G_sum.transpose();
@@ -238,9 +238,9 @@ IGL_INLINE bool igl::arap_dof_precomputation(
   // If this is a bottle neck then consider reordering matrix multiplication
   data.M_KG = -4.0 * (MT * (K * G_sumT_dim_dim));
 //#ifdef EXTREME_VERBOSE
-//  cout<<"data.M_KGIJV=["<<endl;print_ijv(data.M_KG,1);cout<<endl<<"];"<<
-//    endl<<"data.M_KG=sparse(data.M_KGIJV(:,1),data.M_KGIJV(:,2),data.M_KGIJV(:,3),"<<
-//    data.M_KG.rows()<<","<<data.M_KG.cols()<<");"<<endl;
+//  std::cout<<"data.M_KGIJV=["<<std::endl;print_ijv(data.M_KG,1);cout<<std::endl<<"];"<<
+//    std::endl<<"data.M_KG=sparse(data.M_KGIJV(:,1),data.M_KGIJV(:,2),data.M_KGIJV(:,3),"<<
+//    data.M_KG.rows()<<","<<data.M_KG.cols()<<");"<<std::endl;
 //#endif
 
   // Precompute system matrix
@@ -249,9 +249,9 @@ IGL_INLINE bool igl::arap_dof_precomputation(
   repdiag(Lapl,data.dim,A);
   data.Q = MT * (A * M);
 //#ifdef EXTREME_VERBOSE
-//  cout<<"QIJV=["<<endl;print_ijv(data.Q,1);cout<<endl<<"];"<<
-//    endl<<"Q=sparse(QIJV(:,1),QIJV(:,2),QIJV(:,3),"<<
-//    data.Q.rows()<<","<<data.Q.cols()<<");"<<endl;
+//  std::cout<<"QIJV=["<<std::endl;print_ijv(data.Q,1);cout<<std::endl<<"];"<<
+//    std::endl<<"Q=sparse(QIJV(:,1),QIJV(:,2),QIJV(:,3),"<<
+//    data.Q.rows()<<","<<data.Q.cols()<<");"<<std::endl;
 //#endif
 
   // Always do dynamics precomputation so we can hot-switch
@@ -261,9 +261,9 @@ IGL_INLINE bool igl::arap_dof_precomputation(
     SparseMatrix<double> Mass;
     //printf("massmatrix()\n");
     massmatrix(V,F,(F.cols()>3?MASSMATRIX_TYPE_BARYCENTRIC:MASSMATRIX_TYPE_VORONOI),Mass);
-    //cout<<"MIJV=["<<endl;print_ijv(Mass,1);cout<<endl<<"];"<<
-    //  endl<<"M=sparse(MIJV(:,1),MIJV(:,2),MIJV(:,3),"<<
-    //  Mass.rows()<<","<<Mass.cols()<<");"<<endl;
+    //cout<<"MIJV=["<<std::endl;print_ijv(Mass,1);cout<<std::endl<<"];"<<
+    //  std::endl<<"M=sparse(MIJV(:,1),MIJV(:,2),MIJV(:,3),"<<
+    //  Mass.rows()<<","<<Mass.cols()<<");"<<std::endl;
     //speye(data.n,Mass);
     SparseMatrix<double> Mass_rep;
     repdiag(Mass,data.dim,Mass_rep);
@@ -539,7 +539,7 @@ IGL_INLINE bool igl::arap_dof_recomputation(
   }
 
 #ifdef EXTREME_VERBOSE
-  cout<<"data.fixed_dim=["<<endl<<data.fixed_dim<<endl<<"]+1;"<<endl;
+  std::cout<<"data.fixed_dim=["<<std::endl<<data.fixed_dim<<std::endl<<"]+1;"<<std::endl;
 #endif
 
   // Compute dense solve matrix (alternative of matrix factorization)
@@ -636,8 +636,8 @@ IGL_INLINE bool igl::arap_dof_update(
 
   assert(L0.cols() == 1);
 #ifdef EXTREME_VERBOSE
-  cout<<"dim="<<data.dim<<";"<<endl;
-  cout<<"m="<<data.m<<";"<<endl;
+  std::cout<<"dim="<<data.dim<<";"<<std::endl;
+  std::cout<<"m="<<data.m<<";"<<std::endl;
 #endif
 
   // number of groups
@@ -647,7 +647,7 @@ IGL_INLINE bool igl::arap_dof_update(
     assert(data.CSM_M[i].rows()/data.dim == k);
   }
 #ifdef EXTREME_VERBOSE
-  cout<<"k="<<k<<";"<<endl;
+  std::cout<<"k="<<k<<";"<<std::endl;
 #endif
 
   // resize output and initialize with initial guess
@@ -726,7 +726,7 @@ IGL_INLINE bool igl::arap_dof_update(
     }
 
 #ifdef EXTREME_VERBOSE
-    cout<<"S=["<<endl<<S<<endl<<"];"<<endl;
+    std::cout<<"S=["<<std::endl<<S<<std::endl<<"];"<<std::endl;
 #endif
     // Fit rotations to covariance matrices
     if(data.effective_dim == 2)
@@ -742,7 +742,7 @@ IGL_INLINE bool igl::arap_dof_update(
     }
 
 #ifdef EXTREME_VERBOSE
-    cout<<"R=["<<endl<<R<<endl<<"];"<<endl;
+    std::cout<<"R=["<<std::endl<<R<<std::endl<<"];"<<std::endl;
 #endif  
 
     if(data.print_timings)
@@ -760,7 +760,7 @@ IGL_INLINE bool igl::arap_dof_update(
     // CSolveBlock1 multiplication
     columnize(R, k, 2, Rcol);
 #ifdef EXTREME_VERBOSE
-    cout<<"Rcol=["<<endl<<Rcol<<endl<<"];"<<endl;
+    std::cout<<"Rcol=["<<std::endl<<Rcol<<std::endl<<"];"<<std::endl;
 #endif  
     splitColumns(Rcol, k, data.dim, data.dim, Rxyz);
     
@@ -819,7 +819,7 @@ IGL_INLINE bool igl::arap_dof_update(
     }
 
 #ifdef EXTREME_VERBOSE
-    cout<<"L=["<<endl<<L<<endl<<"];"<<endl;
+    std::cout<<"L=["<<std::endl<<L<<std::endl<<"];"<<std::endl;
 #endif  
 
     if(data.print_timings)

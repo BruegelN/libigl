@@ -23,10 +23,9 @@
 //  Eigen::PlainObjectBase<DerivedX>& Y,
 //  Eigen::PlainObjectBase<DerivedIX>& IX)
 //{
-//  using namespace std;
-//  using namespace Eigen;
+//  //  using namespace Eigen;
 //  typedef Eigen::Matrix<typename DerivedX::Scalar, Eigen::Dynamic, 1> RowVector;
-//  vector<SortableRow<RowVector> > rows;
+//  std::vector<SortableRow<RowVector> > rows;
 //  rows.resize(X.rows());
 //  // Loop over rows
 //  for(int i = 0;i<X.rows();i++)
@@ -34,7 +33,7 @@
 //    RowVector ri = X.row(i);
 //    rows[i] = SortableRow<RowVector>(ri);
 //  }
-//  vector<SortableRow<RowVector> > sorted;
+//  std::vector<SortableRow<RowVector> > sorted;
 //  std::vector<size_t> index_map;
 //  // Perform sort on rows
 //  igl::sort(rows,ascending,sorted,index_map);
@@ -59,7 +58,6 @@ IGL_INLINE void igl::sortrows(
   // This is already 2x faster than matlab's builtin `sortrows`. I have tried
   // implementing a "multiple-pass" sort on each column, but see no performance
   // improvement.
-  using namespace std;
   using namespace Eigen;
   // Resize output
   const size_t num_rows = X.rows();

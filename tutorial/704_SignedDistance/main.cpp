@@ -35,7 +35,6 @@ bool useFastWindingNumber = false;
 void update_visualization(igl::opengl::glfw::Viewer & viewer)
 {
   using namespace Eigen;
-  using namespace std;
   Eigen::Vector4d plane(
     0,0,1,-((1-slice_z)*V.col(2).minCoeff()+slice_z*V.col(2).maxCoeff()));
   MatrixXd V_vis;
@@ -136,13 +135,12 @@ bool key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int mod)
 int main(int argc, char *argv[])
 {
   using namespace Eigen;
-  using namespace std;
 
-  cout<<"Usage:"<<endl;
-  cout<<"[space]  toggle showing surface."<<endl;
-  cout<<"'.'/','  push back/pull forward slicing plane."<<endl;
-  cout<< "1/2 toggle between fast winding number (1) and pseudonormal (2) signing. \n";
-  cout<<endl;
+  std::cout<<"Usage:"<<std::endl;
+  std::cout<<"[space]  toggle showing surface."<<std::endl;
+  std::cout<<"'.'/','  push back/pull forward slicing plane."<<std::endl;
+  std::cout<< "1/2 toggle between fast winding number (1) and pseudonormal (2) signing. \n";
+  std::cout<<std::endl;
 
   // Load mesh: (V,T) tet-mesh of convex hull, F contains original surface
   // triangles

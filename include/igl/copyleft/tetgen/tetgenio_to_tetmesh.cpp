@@ -19,14 +19,13 @@ IGL_INLINE bool igl::copyleft::tetgen::tetgenio_to_tetmesh(
   std::vector<std::vector<int> > & T,
   std::vector<std::vector<int> > & F)
 {
-  using namespace std;
   // process points
   if(out.pointlist == NULL)
   {
-    cerr<<"^tetgenio_to_tetmesh Error: point list is NULL\n"<<endl;
+    std::cerr<<"^tetgenio_to_tetmesh Error: point list is NULL\n"<<std::endl;
     return false;
   }
-  V.resize(out.numberofpoints,vector<REAL>(3));
+  V.resize(out.numberofpoints,std::vector<REAL>(3));
   // loop over points
   for(int i = 0;i < out.numberofpoints; i++)
   {
@@ -39,13 +38,13 @@ IGL_INLINE bool igl::copyleft::tetgen::tetgenio_to_tetmesh(
   // process tets
   if(out.tetrahedronlist == NULL)
   {
-    cerr<<"^tetgenio_to_tetmesh Error: tet list is NULL\n"<<endl;
+    std::cerr<<"^tetgenio_to_tetmesh Error: tet list is NULL\n"<<std::endl;
     return false;
   }
 
   // When would this not be 4?
   assert(out.numberofcorners == 4);
-  T.resize(out.numberoftetrahedra,vector<int>(out.numberofcorners));
+  T.resize(out.numberoftetrahedra,std::vector<int>(out.numberofcorners));
   int min_index = 1e7;
   int max_index = -1e7;
   // loop over tetrahedra
@@ -68,7 +67,7 @@ IGL_INLINE bool igl::copyleft::tetgen::tetgenio_to_tetmesh(
   // loop over tetrahedra
   for(int i = 0; i < out.numberoftrifaces; i++)
   {
-    vector<int> face(3);
+    std::vector<int> face(3);
     for(int j = 0; j<3; j++)
     {
       face[j] = out.trifacelist[i * 3 + j];
@@ -96,10 +95,9 @@ IGL_INLINE bool igl::copyleft::tetgen::tetgenio_to_tetmesh(
   Eigen::PlainObjectBase<DerivedT>& T,
   Eigen::PlainObjectBase<DerivedF>& F)
 {
-  using namespace std;
-  vector<vector<REAL> > vV;
-  vector<vector<int> > vT;
-  vector<vector<int> > vF;
+    std::vector<std::vector<REAL> > vV;
+  std::vector<std::vector<int> > vT;
+  std::vector<std::vector<int> > vF;
   bool success = tetgenio_to_tetmesh(out,vV,vT,vF);
   if(!success)
   {
@@ -146,14 +144,13 @@ IGL_INLINE bool igl::copyleft::tetgen::tetgenio_to_tetmesh(
   std::vector<std::vector<int > >& FT,
   size_t & nR )
 {
-  using namespace std;
   // process points
   if(out.pointlist == NULL)
   {
-    cerr<<"^tetgenio_to_tetmesh Error: point list is NULL\n"<<endl;
+    std::cerr<<"^tetgenio_to_tetmesh Error: point list is NULL\n"<<std::endl;
     return false;
   }
-  V.resize(out.numberofpoints,vector<REAL>(3));
+  V.resize(out.numberofpoints,std::vector<REAL>(3));
   // loop over points
   for(int i = 0;i < out.numberofpoints; i++)
   {
@@ -165,13 +162,13 @@ IGL_INLINE bool igl::copyleft::tetgen::tetgenio_to_tetmesh(
   // process tets
   if(out.tetrahedronlist == NULL)
   {
-    cerr<<"^tetgenio_to_tetmesh Error: tet list is NULL\n"<<endl;
+    std::cerr<<"^tetgenio_to_tetmesh Error: tet list is NULL\n"<<std::endl;
     return false;
   }
 
   // When would this not be 4?
   assert(out.numberofcorners == 4);
-  T.resize(out.numberoftetrahedra,vector<int>(out.numberofcorners));
+  T.resize(out.numberoftetrahedra,std::vector<int>(out.numberofcorners));
   int min_index = 1e7;
   int max_index = -1e7;
   // loop over tetrahedra
@@ -195,7 +192,7 @@ IGL_INLINE bool igl::copyleft::tetgen::tetgenio_to_tetmesh(
   // loop over tetrahedra
   for(int i = 0; i < out.numberoftrifaces; i++)
   {
-    vector<int> face(3);
+    std::vector<int> face(3);
     for(int j = 0; j<3; j++)
     {
       face[j] = out.trifacelist[i * 3 + j];
@@ -205,8 +202,8 @@ IGL_INLINE bool igl::copyleft::tetgen::tetgenio_to_tetmesh(
 
   if(out.tetrahedronattributelist)
   {
-    R.resize(out.numberoftetrahedra, vector<REAL>(1));
-    unordered_map<REAL, REAL> hashUniqueRegions;
+    R.resize(out.numberoftetrahedra, std::vector<REAL>(1));
+    std::unordered_map<REAL, REAL> hashUniqueRegions;
     for(size_t i = 0; i < out.numberoftetrahedra; i++)
     {
          R[i][0] = out.tetrahedronattributelist[i];
@@ -223,7 +220,7 @@ IGL_INLINE bool igl::copyleft::tetgen::tetgenio_to_tetmesh(
   // extract neighbor list
   if(out.neighborlist)
   {
-    N.resize(out.numberoftetrahedra, vector<int>(4));
+    N.resize(out.numberoftetrahedra, std::vector<int>(4));
     for (size_t i = 0; i < out.numberoftetrahedra; i++)
     {
       for (size_t j = 0; j < 4; j++)
@@ -237,7 +234,7 @@ IGL_INLINE bool igl::copyleft::tetgen::tetgenio_to_tetmesh(
   // extract point 2 tetrahedron list
   if(out.point2tetlist)
   {
-    PT.resize(out.numberofpoints, vector<int>(1));
+    PT.resize(out.numberofpoints, std::vector<int>(1));
     for (size_t i = 0; i < out.numberofpoints; i++)
     {
       PT[i][0] = out.point2tetlist[i];
@@ -250,7 +247,7 @@ IGL_INLINE bool igl::copyleft::tetgen::tetgenio_to_tetmesh(
   //extract face to tetrahedron list
   if(out.face2tetlist)
   {
-    FT.resize(out.numberoftrifaces, vector<int>(2));
+    FT.resize(out.numberoftrifaces, std::vector<int>(2));
     int triface;
     for (size_t i = 0; i < out.numberoftrifaces; i++)
     {

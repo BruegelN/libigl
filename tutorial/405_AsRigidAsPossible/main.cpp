@@ -34,7 +34,6 @@ igl::ARAPData arap_data;
 bool pre_draw(igl::opengl::glfw::Viewer & viewer)
 {
   using namespace Eigen;
-  using namespace std;
     MatrixXd bc(b.size(),V.cols());
     for(int i = 0;i<b.size();i++)
     {
@@ -90,14 +89,13 @@ bool key_down(igl::opengl::glfw::Viewer &viewer, unsigned char key, int mods)
 int main(int argc, char *argv[])
 {
   using namespace Eigen;
-  using namespace std;
   igl::readOFF(TUTORIAL_SHARED_PATH "/decimated-knight.off",V,F);
   U=V;
   igl::readDMAT(TUTORIAL_SHARED_PATH "/decimated-knight-selection.dmat",S);
 
   // vertices in selection
   igl::colon<int>(0,V.rows()-1,b);
-  b.conservativeResize(stable_partition( b.data(), b.data()+b.size(), 
+  b.conservativeResize(std::stable_partition( b.data(), b.data()+b.size(),
    [](int i)->bool{return S(i)>=0;})-b.data());
   // Centroid
   mid = 0.5*(V.colwise().maxCoeff() + V.colwise().minCoeff());
@@ -128,7 +126,7 @@ int main(int argc, char *argv[])
   viewer.callback_key_down = &key_down;
   viewer.core().is_animating = false;
   viewer.core().animation_max_fps = 30.;
-  cout<<
-    "Press [space] to toggle animation"<<endl;
+  std::cout<<
+    "Press [space] to toggle animation"<<std::endl;
   viewer.launch();
 }

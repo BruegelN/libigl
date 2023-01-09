@@ -53,7 +53,6 @@ enum ModeType
 bool pre_draw(igl::opengl::glfw::Viewer & viewer)
 {
   using namespace Eigen;
-  using namespace std;
   if(resolve)
   {
     MatrixXd bc(b.size(),V.cols());
@@ -144,7 +143,6 @@ bool key_down(igl::opengl::glfw::Viewer &viewer, unsigned char key, int mods)
 int main(int argc, char *argv[])
 {
   using namespace Eigen;
-  using namespace std;
   igl::readOBJ(TUTORIAL_SHARED_PATH "/armadillo.obj",V,F);
   U=V;
   MatrixXd W;
@@ -166,11 +164,11 @@ int main(int argc, char *argv[])
   }
 
   // Precomputation for FAST
-  cout<<"Initializing Fast Automatic Skinning Transformations..."<<endl;
+  std::cout<<"Initializing Fast Automatic Skinning Transformations..."<<std::endl;
   // number of weights
   const int m = W.cols();
   Aeq.resize(m*3,m*3*(3+1));
-  vector<Triplet<double> > ijv;
+  std::vector<Triplet<double> > ijv;
   for(int i = 0;i<m;i++)
   {
     RowVector4d homo;
@@ -191,11 +189,11 @@ int main(int argc, char *argv[])
   igl::columnize(Istack,m,2,L);
 
   // Precomputation for ARAP
-  cout<<"Initializing ARAP..."<<endl;
+  std::cout<<"Initializing ARAP..."<<std::endl;
   arap_data.max_iter = 1;
   igl::arap_precomputation(V,F,V.cols(),b,arap_data);
   // Grouped arap
-  cout<<"Initializing ARAP with grouped edge-sets..."<<endl;
+  std::cout<<"Initializing ARAP with grouped edge-sets..."<<std::endl;
   arap_grouped_data.max_iter = 2;
   arap_grouped_data.G = G;
   igl::arap_precomputation(V,F,V.cols(),b,arap_grouped_data);
@@ -213,10 +211,10 @@ int main(int argc, char *argv[])
   viewer.callback_key_down = &key_down;
   viewer.core().is_animating = false;
   viewer.core().animation_max_fps = 30.;
-  cout<<
-    "Press [space] to toggle animation."<<endl<<
-    "Press '0' to reset pose."<<endl<<
-    "Press '.' to switch to next deformation method."<<endl<<
-    "Press ',' to switch to previous deformation method."<<endl;
+  std::cout<<
+    "Press [space] to toggle animation."<<std::endl<<
+    "Press '0' to reset pose."<<std::endl<<
+    "Press '.' to switch to next deformation method."<<std::endl<<
+    "Press ',' to switch to previous deformation method."<<std::endl;
   viewer.launch();
 }

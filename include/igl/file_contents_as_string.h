@@ -16,7 +16,7 @@ namespace igl
   // Inputs:
   //   file_name  path to file to be read
   // Outputs:
-  //   content  output string containing contents of the given file
+  //   content  output std::string containing contents of the given file
   // Returns true on succes, false on error
   IGL_INLINE bool file_contents_as_string(
     const std::string file_name,

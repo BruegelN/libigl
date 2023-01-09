@@ -111,7 +111,7 @@ namespace igl
             m_number_of_birth_faces = 
               A.number_of_birth_faces() + B.number_of_birth_faces();
           }
-          // Overload using string for type
+          // Overload using std::string for type
           CSGTree(
             const CSGTree & A,
             const CSGTree & B,

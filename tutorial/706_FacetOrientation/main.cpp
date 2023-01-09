@@ -21,8 +21,7 @@ bool facetwise = false;
 
 int main(int argc, char * argv[])
 {
-  using namespace std;
-  cout<<R"(
+    std::cout<<R"(
 Usage:
 
 [space]  Toggle between original and reoriented faces
